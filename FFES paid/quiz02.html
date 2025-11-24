@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Verdadeiro ou Falso? | FFES</title>
+    <meta name="description" content="Teste seus conhecimentos de inglês com este quiz de Verdadeiro ou Falso.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none; /* Começa escondido */
+            margin-top: -10px; /* Sobe um pouco para perto do card */
+            margin-bottom: 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Teoria e Contexto em Ação: Verdadeiro ou Falso?</h2>
+    <p>Você lerá uma afirmação em inglês. Seu objetivo é decidir se ela é gramaticalmente correta ou factualmente verdadeira.</p>
+    <p>Preste atenção aos detalhes. Algumas perguntas testam gramática, enquanto outras testam seu conhecimento geral e vocabulário.</p>
+</div>
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    <p id="question-prompt" class="exercise-prompt">Carregando afirmação...</p>
+                    
+                    <div id="options-container" class="mc-options">
+                        </div>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        <div class="social-media-links">
+            <h4>Siga-me nas redes sociais</h4>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" title="YouTube"><img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png" alt="YouTube"></a>
+            <a href="https://www.instagram.com/teacherleoramos/" target="_blank" title="Instagram"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@teacherleoramos" target="_blank" title="TikTok"><img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok.png" alt="TikTok"></a>
+            <a href="https://wa.me/5511955582118" target="_blank" title="WhatsApp"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp"></a>
+        </div>
+        <p><strong>Contato</strong></p>
+        <p>Youtube: @teacherleoramos | Telefone - WhatsApp: (11) 95558-2118</p>
+        <p>Endereço: São Paulo, SP, Brasil</p>
+        <p>CNPJ: 43.226.983/0001-91</p>
+        <p>&copy; 2025 | FEATHERED FRIENDS ENGLISH SCHOOL - FFES. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE PERGUNTAS (T/F) ---
+    const allQuestions = [
+        { statement: "The capital of Australia is Sydney.", isTrue: false }, // É Canberra
+        { statement: "The verb 'go' is an irregular verb.", isTrue: true },
+        { statement: "The past tense of 'study' is 'studyed'.", isTrue: false }, // É 'studied'
+        { statement: "An 'apple' is a vegetable.", isTrue: false },
+        { statement: "The sun rises in the east.", isTrue: true },
+        { statement: "The plural of 'mouse' is 'mouses'.", isTrue: false }, // É 'mice'
+        { statement: "Sharks are mammals.", isTrue: false }, // São peixes
+        { statement: "'Happy' is the opposite of 'sad'.", isTrue: true },
+        { statement: "The sentence 'She don't like pizza' is grammatically correct.", isTrue: false }, // É 'doesn't'
+        { statement: "Water boils at 100 degrees Celsius.", isTrue: true },
+        { statement: "The plural of 'child' is 'childs'.", isTrue: false }, // É 'children'
+        { statement: "Japan is an island.", isTrue: true },
+        { statement: "The comparative of 'good' is 'gooder'.", isTrue: false }, // É 'better'
+        { statement: "A 'library' is a place where you buy books.", isTrue: false }, // Você 'borrows' (pega emprestado)
+        { statement: "Penguins can fly.", isTrue: false },
+        { statement: "The word 'beautiful' is an adjective.", isTrue: true },
+        { statement: "The past tense of 'eat' is 'eated'.", isTrue: false }, // É 'ate'
+        { statement: "A 'decade' is a period of 10 years.", isTrue: true },
+        { statement: "The word 'run' is a noun.", isTrue: false }, // É um verbo
+        { statement: "The superlative of 'tall' is 'most tall'.", isTrue: false }, // É 'tallest'
+        { statement: "Mount Everest is the tallest mountain in the world.", isTrue: true },
+        { statement: "We use 'an' before words that start with a vowel sound.", isTrue: true }, // ex: an apple, an hour
+        { statement: "'Quickly' is an adverb.", isTrue: true },
+        { statement: "The past tense of 'buy' is 'buyed'.", isTrue: false }, // É 'bought'
+        { statement: "Spiders have six legs.", isTrue: false }, // Têm oito
+        { statement: "The sentence 'I am agree' is correct.", isTrue: false }, // É 'I agree'
+        { statement: "Africa is a country.", isTrue: false }, // É um continente
+        { statement: "The opposite of 'cheap' is 'expensive'.", isTrue: true },
+        { statement: "'On' is a preposition.", isTrue: true },
+        { statement: "The Amazon River is the longest river in the world.", isTrue: true },
+        { statement: "The plural of 'woman' is 'womans'.", isTrue: false }, // É 'women'
+        { statement: "We use 'must' for strong obligation.", isTrue: true },
+        { statement: "A 'dictionary' is a book of maps.", isTrue: false },
+        { statement: "The sentence 'He play soccer' is correct.", isTrue: false }, // É 'He plays'
+        { statement: "The moon is hotter than the sun.", isTrue: false },
+        { statement: "The past participle of 'drink' is 'drunk'.", isTrue: true },
+        { statement: "A 'chef' works in a hospital.", isTrue: false }, // Trabalha em um restaurante
+        { statement: "The word 'they' is a subject pronoun.", isTrue: true },
+        { statement: "February has 30 days.", isTrue: false },
+        { statement: "'Used to' talks about past habits.", isTrue: true },
+        { statement: "The plural of 'tooth' is 'teeth'.", isTrue: true },
+        { statement: "Paris is the capital of Spain.", isTrue: false }, // É Madrid
+        { statement: "'Much' is used with countable nouns.", isTrue: false }, // É 'many'
+        { statement: "The sentence 'I have 20 years' is correct in English.", isTrue: false }, // É 'I am 20 years old'
+        { statement: "Bats are birds.", isTrue: false }, // São mamíferos
+        { statement: "The comparative of 'bad' is 'worse'.", isTrue: true },
+        { statement: "The word 'happyly' is spelled correctly.", isTrue: false }, // É 'happily'
+        { statement: "A 'century' is 1000 years.", isTrue: false }, // É 100
+        { statement: "The past tense of 'teach' is 'teached'.", isTrue: false }, // É 'taught'
+        { statement: "The word 'listen' and 'hear' mean the same thing.", isTrue: false }, // 'listen' é ativo, 'hear' é passivo
+        { statement: "The plural of 'fish' can be 'fish'.", isTrue: true },
+        { statement: "There are 7 continents in the world.", isTrue: true },
+        { statement: "The sentence 'He is more tall than me' is correct.", isTrue: false }, // É 'taller'
+        { statement: "Brazil is in Europe.", isTrue: false },
+        { statement: "The opposite of 'polite' is 'impolite' or 'rude'.", isTrue: true },
+        { statement: "The past tense of 'read' is 'read' (pronounced 'red').", isTrue: true },
+        { statement: "A 'baker' sells flowers.", isTrue: false }, // Vende pão
+        { statement: "The plural of 'person' is 'persons' or 'people'.", isTrue: true },
+        { statement: "'Some' is used in questions and negative sentences.", isTrue: false }, // É 'any'
+        { statement: "The word 'their' shows possession.", isTrue: true },
+        { statement: "'They're' is a contraction for 'they are'.", isTrue: true },
+        { statement: "'There' indicates a place.", isTrue: true },
+        { statement: "The past tense of 'think' is 'thinked'.", isTrue: false }, // É 'thought'
+        { statement: "The word 'kitchen' is a room in a house.", isTrue: true },
+        { statement: "The sentence 'She has much friends' is correct.", isTrue: false }, // É 'many'
+        { statement: "A 'whale' is a fish.", isTrue: false }, // É um mamífero
+        { statement: "The opposite of 'empty' is 'full'.", isTrue: true },
+        { statement: "The plural of 'knife' is 'knifes'.", isTrue: false }, // É 'knives'
+        { statement: "'Can' is a modal verb.", isTrue: true },
+        { statement: "The past tense of 'sleep' is 'sleeped'.", isTrue: false }, // É 'slept'
+        { statement: "A 'laptop' is a type of fruit.", isTrue: false },
+        { statement: "The sentence 'He don't have a car' is correct.", isTrue: false }, // É 'doesn't'
+        { statement: "Rome is the capital of Italy.", isTrue: true },
+        { statement: "The word 'slow' is an adverb.", isTrue: false }, // É um adjetivo
+        { statement: "The plural of 'potato' is 'potatos'.", isTrue: false }, // É 'potatoes'
+        { statement: "The superlative of 'bad' is 'baddest'.", isTrue: false }, // É 'worst'
+        { statement: "A 'square' has four equal sides.", isTrue: true },
+        { statement: "The word 'book' can be a noun and a verb.", isTrue: true }, // (to book a flight)
+        { statement: "The past participle of 'go' is 'goed'.", isTrue: false }, // É 'gone'
+        { statement: "The word 'under' is a conjunction.", isTrue: false }, // É uma preposição
+        { statement: "The Atlantic Ocean is the largest ocean.", isTrue: false }, // É o Pacífico
+        { statement: "The plural of 'sheep' is 'sheeps'.", isTrue: false }, // É 'sheep'
+        { statement: "The word 'fast' can be an adjective and an adverb.", isTrue: true },
+        { statement: "The opposite of 'difficult' is 'easy'.", isTrue: true },
+        { statement: "We use 'at' for specific times (e.g., 'at 5 PM').", isTrue: true },
+        { statement: "We use 'in' for months (e.g., 'in December').", isTrue: true },
+        { statement: "The past tense of 'write' is 'writed'.", isTrue: false }, // É 'wrote'
+        { statement: "The word 'advice' (with 'c') is a verb.", isTrue: false }, // É um substantivo
+        { statement: "The word 'advise' (with 's') is a verb.", isTrue: true },
+        { statement: "A 'triangle' has three sides.", isTrue: true },
+        { statement: "The word 'information' is countable.", isTrue: false }, // É incontável
+        { statement: "The opposite of 'beautiful' is 'ugly'.", isTrue: true },
+        { statement: "The past tense of 'come' is 'comed'.", isTrue: false }, // É 'came'
+        { statement: "The plural of 'leaf' is 'leaves'.", isTrue: true },
+        { statement: "The word 'furniture' is countable.", isTrue: false }, // É incontável
+        { statement: "A 'butcher' sells vegetables.", isTrue: false }, // Vende carne
+        { statement: "'Less' is used with countable nouns.", isTrue: false }, // É 'fewer'
+        { statement: "'Little' is used with uncountable nouns.", isTrue: true },
+        { statement: "The superlative of 'interesting' is 'interestinger'.", isTrue: false }, // É 'most interesting'
+        { statement: "The sentence 'I've been to Japan' is Present Perfect.", isTrue: true },
+        { statement: "The word 'weather' and 'whether' have the same meaning.", isTrue: false }
+    ];
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {}; // Armazena o objeto da pergunta atual
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const questionPromptEl = document.getElementById('question-prompt');
+    const optionsContainerEl = document.getElementById('options-container');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    // 1. Iniciar o Quiz (ou reiniciar)
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        loadNextQuestion();
+    }
+
+    // 2. Carregar a próxima pergunta
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        optionsContainerEl.innerHTML = ''; 
+        nextQuestionBtn.style.display = 'none'; 
+
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        questionPromptEl.textContent = currentQuestion.statement;
+
+        // Criar os dois botões
+        const trueBtn = document.createElement('div');
+        trueBtn.textContent = 'True (Verdadeiro)';
+        trueBtn.className = 'mc-option';
+        trueBtn.dataset.answer = 'true';
+
+        const falseBtn = document.createElement('div');
+        falseBtn.textContent = 'False (Falso)';
+        falseBtn.className = 'mc-option';
+        falseBtn.dataset.answer = 'false';
+        
+        optionsContainerEl.appendChild(trueBtn);
+        optionsContainerEl.appendChild(falseBtn);
+    }
+
+    // 3. Lidar com o clique em uma opção
+    function handleOptionClick(event) {
+        const clickedOption = event.target.closest('.mc-option');
+        
+        if (!clickedOption || feedbackMessageEl.textContent !== '') {
+            return;
+        }
+
+        const userAnswer = (clickedOption.dataset.answer === 'true'); // Converte para boolean
+        const correctAnswer = currentQuestion.isTrue; // Já é boolean
+
+        if (userAnswer === correctAnswer) {
+            clickedOption.classList.add('correct-answer');
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            clickedOption.classList.add('incorrect-answer');
+            feedbackMessageEl.textContent = 'Incorreto.';
+            feedbackMessageEl.className = 'feedback incorrect';
+            
+            // Encontra e destaca a resposta correta
+            const correctButton = (correctAnswer) 
+                ? optionsContainerEl.querySelector('[data-answer="true"]')
+                : optionsContainerEl.querySelector('[data-answer="false"]');
+            correctButton.classList.add('correct-answer');
+            erros++;
+        }
+
+        atualizarPlacar();
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    // 4. Atualizar o placar
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    optionsContainerEl.addEventListener('click', handleOptionClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+    resetBtn.addEventListener('click', startQuiz);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

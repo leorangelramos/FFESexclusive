@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Repetir e Gravar (Speaking) | FFES</title>
+    <meta name="description" content="Pratique sua pronúncia em inglês (speaking) com este exercício de reconhecimento de voz.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none; /* Começa escondido */
+            margin-top: 15px;
+            font-size: 1em;
+        }
+
+        /* Botão de "Gravar" */
+        #record-btn {
+            font-size: 1.5em; /* Tamanho maior */
+            padding: 15px 30px;
+            margin-bottom: 10px;
+        }
+        
+        /* Animação de "Ouvindo" */
+        #record-btn.listening {
+            background-color: #c0392b; /* Vermelho */
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(192, 57, 43, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0); }
+        }
+
+        /* A frase para repetir */
+        #sentence-to-repeat {
+            font-size: 1.5em; 
+            text-align: center; 
+            color: var(--cor-primaria);
+            margin: 25px 0;
+            padding: 20px;
+            background-color: var(--cor-fundo-secao-destaque);
+            border-radius: 8px;
+        }
+        
+        #status-message {
+            text-align: center;
+            font-style: italic;
+            min-height: 1.5em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Pronúncia e Fala (Speaking): Repetir e Gravar</h2>
+    <p>Teste sua pronúncia! Leia a frase em inglês em voz alta.</p>
+    <p>1. Clique no botão <strong>"🎙️ Gravar"</strong>.<br>
+       2. O navegador pedirá **permissão para usar seu microfone**. Clique em "Permitir".<br>
+       3. Leia a frase em voz alta e o sistema verificará sua pronúncia.</p>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p class="exercise-prompt" style="text-align: center;">Leia a frase abaixo em voz alta:</p>
+                    
+                    <p id="sentence-to-repeat">Carregando frase...</p>
+                    
+                    <div style="text-align: center;">
+                        <button id="record-btn" class="cta-button">🎙️ Gravar</button>
+                    </div>
+                    
+                    <p id="status-message"></p>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button" style="margin: 0 auto; display: none;">Próxima Frase</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você praticou todas as frases.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE FRASES (A1) ---
+    const allSentences = [
+        "Hello, how are you?",
+        "My name is Leo.",
+        "I am from Brazil.",
+        "She is a doctor.",
+        "He likes pizza.",
+        "They have a dog.",
+        "It is cold today.",
+        "We go to school.",
+        "I am hungry.",
+        "Do you speak English?",
+        "I do not understand.",
+        "Where are you from?",
+        "This is my family.",
+        "He is my brother.",
+        "She is my sister.",
+        "I live in a small house.",
+        "They are playing soccer.",
+        "I like apples and bananas.",
+        "What time is it?",
+        "I need to buy water.",
+        "He is reading a book.",
+        "The cat is sleeping.",
+        "I wake up at seven AM.",
+        "He works in a bank.",
+        "She is wearing a red dress.",
+        "The sky is blue.",
+        "I want to eat pasta.",
+        "He does not like fish.",
+        "Where is the bathroom?",
+        "I am tired.",
+        "He is very tall.",
+        "She is very kind.",
+        "I am thirsty.",
+        "We are happy.",
+        "They are at home.",
+        "I can speak English.",
+        "I am learning.",
+        "Today is Monday.",
+        "I like the color blue.",
+        "My favorite food is chicken."
+    ];
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableSentences = [];
+    let currentSentence = "";
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const recordBtn = document.getElementById('record-btn');
+    const sentenceToRepeatEl = document.getElementById('sentence-to-repeat');
+    const statusMessageEl = document.getElementById('status-message');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- INICIALIZAÇÃO DA API DE FALA ---
+    let recognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'en-US'; // Foco em Inglês
+        recognition.continuous = false; // Só grava uma vez
+        recognition.interimResults = false; // Só queremos o resultado final
+    } else {
+        // Se o navegador não suportar
+        alert('Desculpe, seu navegador não suporta este exercício de fala. Tente usar o Google Chrome ou Firefox.');
+        quizAreaEl.innerHTML = `<p class="feedback incorrect" style="text-align: center;">Seu navegador não suporta a API de Reconhecimento de Fala.</p>`;
+        resetBtn.style.display = 'none';
+    }
+
+    /**
+     * Função auxiliar para "normalizar" o texto (ESSENCIAL)
+     * A API de fala retorna minúsculas e sem pontuação.
+     */
+    function normalizeText(text) {
+        if (typeof text !== 'string') return '';
+        return text.trim()
+                   .toLowerCase()
+                   .replace(/[.,?!]/g, ''); // Remove pontuação
+    }
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        if (!recognition) return; // Não inicia se a API falhou
+        availableSentences = [...allSentences];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        loadNextSentence();
+    }
+
+    function loadNextSentence() {
+        if (availableSentences.length === 0) {
+            quizAreaEl.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        statusMessageEl.textContent = '';
+        nextQuestionBtn.style.display = 'none';
+        recordBtn.style.display = 'inline-block';
+        recordBtn.disabled = false;
+        recordBtn.classList.remove('listening');
+
+        const sentenceIndex = Math.floor(Math.random() * availableSentences.length);
+        currentSentence = availableSentences.splice(sentenceIndex, 1)[0]; 
+
+        sentenceToRepeatEl.textContent = currentSentence;
+    }
+
+    // 2. FUNÇÃO PARA GRAVAR A VOZ
+    function handleRecordClick() {
+        if (!recognition) return;
+
+        recordBtn.disabled = true;
+        recordBtn.classList.add('listening');
+        statusMessageEl.textContent = "Ouvindo... (fale agora)";
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+
+        try {
+            recognition.start();
+        } catch (e) {
+            statusMessageEl.textContent = "Erro ao iniciar a gravação. Tente novamente.";
+            recordBtn.disabled = false;
+            recordBtn.classList.remove('listening');
+        }
+    }
+
+    // 3. FUNÇÃO DE VERIFICAÇÃO (quando a API retorna o resultado)
+    function checkSpeech(transcript) {
+        const normalizedTarget = normalizeText(currentSentence);
+        const normalizedTranscript = normalizeText(transcript);
+
+        if (normalizedTarget === normalizedTranscript) {
+            feedbackMessageEl.textContent = `Correto! Você disse: "${transcript}"`;
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            feedbackMessageEl.textContent = `Quase! Esperado: "${currentSentence}" | Você disse: "${transcript}"`;
+            feedbackMessageEl.className = 'feedback incorrect';
+            erros++;
+        }
+
+        atualizarPlacar();
+        recordBtn.style.display = 'none';
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+    
+    // --- EVENT LISTENERS DA API ---
+    
+    if (recognition) {
+        // Quando a fala é processada
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            checkSpeech(transcript);
+        };
+        
+        // Quando a gravação termina (automaticamente)
+        recognition.onend = () => {
+            recordBtn.disabled = false;
+            recordBtn.classList.remove('listening');
+            statusMessageEl.textContent = "Gravação concluída. Processando...";
+        };
+        
+        // Se não detectar fala
+        recognition.onerror = (event) => {
+            if (event.error === 'no-speech') {
+                statusMessageEl.textContent = "Não detectei sua voz. Tente falar mais alto.";
+            } else if (event.error === 'not-allowed') {
+                 statusMessageEl.textContent = "PERMISSÃO NEGADA. Você precisa permitir o uso do microfone.";
+                 quizAreaEl.style.display = 'none'; // Esconde o jogo
+            } else {
+                statusMessageEl.textContent = `Erro de áudio: ${event.error}. Tente novamente.`;
+            }
+            recordBtn.disabled = false;
+            recordBtn.classList.remove('listening');
+        };
+    }
+
+    // --- EVENT LISTENERS DOS BOTÕES ---
+    resetBtn.addEventListener('click', startQuiz);
+    recordBtn.addEventListener('click', handleRecordClick);
+    nextQuestionBtn.addEventListener('click', loadNextSentence);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

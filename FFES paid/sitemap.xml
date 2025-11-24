@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ffes.site/</loc>
+    <lastmod>2025-02-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ffes.site/index.html</loc>
+    <lastmod>2025-02-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url><loc>https://ffes.site/presentsimple.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/presentcontinuous.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/pastsimple.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/pastcontinuous.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/futuresimple.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/futurecontinuous.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/modal01.htm</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/modal02.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/modal03.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/auxiliares3.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://ffes.site/presentperfect.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/presentperfectcont.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/pastperfect.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/pastperfectcont.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/futureperfect.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/futureperfectcont.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicionalwould1.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicionalwould2.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicionalwould3.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicionalwould4.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicional0.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicional1.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicional2.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/condicional3.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://ffes.site/writing001.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/reading001.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/speaking001.html</loc><priority>0.8</priority></url>
+  <url><loc>https://ffes.site/listening001.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://ffes.site/quiz01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/quiz02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/translationcorrect.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/fillthegaps.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/erros001.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/jogodamemoria.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/word-search.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/quiz03verbs.html</loc><priority>0.7</priority></url>
+  <url><loc>https://ffes.site/quiz04pronoms.html</loc><priority>0.7</priority></url>
+  
+  <url><loc>https://ffes.site/aulatema0001.html</loc><priority>0.8</priority></url>
+</urlset>

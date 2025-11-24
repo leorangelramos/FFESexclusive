@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Exercício: Ordenar Parágrafos | FFES</title>
+    <meta name="description" content="Pratique sua leitura e interpretação ordenando os parágrafos de uma história.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #game-area {
+            display: flex;
+            flex-wrap: wrap; /* Permite quebrar a linha em telas menores */
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Coluna da Esquerda: Parágrafos Embaralhados */
+        #paragraph-source {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            background-color: var(--cor-fundo-secao-destaque);
+            border-radius: 8px;
+            border: 2px dashed var(--cor-borda-sutil);
+        }
+        
+        #paragraph-source h3, #paragraph-target h3 {
+            text-align: center;
+            margin-top: 0;
+            color: var(--cor-primaria);
+        }
+
+        /* Coluna da Direita: Caixas para Soltar */
+        #paragraph-target {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            background-color: var(--cor-fundo-secao);
+            border-radius: 8px;
+        }
+
+        /* O parágrafo que pode ser arrastado */
+        .paragraph-block {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background-color: white;
+            border: 1px solid var(--cor-borda-sutil);
+            border-radius: 8px;
+            cursor: grab;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .paragraph-block:active {
+            cursor: grabbing;
+        }
+
+        /* Estilo do parágrafo enquanto está sendo arrastado */
+        .paragraph-block.dragging {
+            opacity: 0.5;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        /* A caixa onde o parágrafo deve ser solto */
+        .drop-zone {
+            padding: 10px;
+            margin-bottom: 10px;
+            min-height: 80px;
+            border: 2px dashed var(--cor-acento);
+            border-radius: 8px;
+            background-color: #fffbeb;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Estilo quando um parágrafo está sobre a caixa */
+        .drop-zone.hovered {
+            background-color: #fdf2d0;
+            border-style: solid;
+        }
+        
+        #game-controls {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #next-story-btn {
+            display: none; /* Começa escondido */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Histórias Corretas: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Tentativas: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Leitura A1: Ordenar Parágrafos</h2>
+    <p>Leia os parágrafos embaralhados na caixa da esquerda. Arraste e solte os parágrafos nas caixas da direita, na ordem correta, para formar uma história coesa.</p>
+    <p><strong>Dica A1:</strong> Procure a frase de introdução (que apresenta o tópico) e a frase de conclusão (que dá um sentimento final). Preste atenção em pronomes (ex: "My cat..." e depois "He...").</p>
+</div>
+
+        <div class="exercise-container">
+            
+            <h2 id="story-title" style="text-align: center;">Carregando...</h2>
+            
+            <div id="game-area">
+                
+                <div id="paragraph-source">
+                    <h3>Parágrafos Embaralhados</h3>
+                    </div>
+                
+                <div id="paragraph-target">
+                    <h3>Sua História (Solte aqui)</h3>
+                    </div>
+
+            </div>
+            
+            <div id="game-controls">
+                <button id="check-order-btn" class="cta-button">Verificar Ordem</button>
+                <button id="next-story-btn" class="cta-button">Próxima História</button>
+                <div id="feedback-message" class="feedback"></div>
+            </div>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você ordenou todas as histórias.</p>
+                <p>Use o botão "Zerar Pontuação" no topo para jogar novamente.</p>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE HISTÓRIAS ---
+    const allStories = [
+        {
+            title: "My Cat, Leo",
+            paragraphs: [
+                "I have a pet. He is a cat and his name is Leo.", // 1
+                "Leo is 3 years old. He is a small cat. His fur (pelo) is black and white.", // 2
+                "He sleeps a lot. He also likes to play with a small ball. His favorite food is fish.", // 3
+                "Leo is part of my family. I love my cat." // 4
+            ]
+        },
+        {
+            title: "My Friend, Ana",
+            paragraphs: [
+                "This is my best friend. Her name is Ana.", // 1
+                "She lives near my house. We go to the same school. She likes to read books.", // 2
+                "We play together after school. On weekends, we go to the park.", // 3
+                "Ana is very nice and funny. She is a good friend." // 4
+            ]
+        },
+        {
+            title: "My Morning Routine",
+            paragraphs: [
+                "I wake up at 7 AM every day.", // 1
+                "First, I brush my teeth and wash my face.", // 2
+                "Then, I have breakfast with my family. I like toast and milk.", // 3
+                "Finally, I go to school." // 4
+            ]
+        }
+    ];
+
+    // --- VARIÁVEIS DE ESTADO ---
+    let acertos = 0;
+    let tentativas = 0;
+    let availableStories = [];
+    let currentStory = {};
+    let draggedItem = null; // O item sendo arrastado
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn'); // O de "Zerar Pontuação"
+    
+    const storyTitleEl = document.getElementById('story-title');
+    const sourceContainer = document.getElementById('paragraph-source');
+    const targetContainer = document.getElementById('paragraph-target');
+    const checkBtn = document.getElementById('check-order-btn');
+    const nextBtn = document.getElementById('next-story-btn');
+    const feedbackEl = document.getElementById('feedback-message');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+    const gameAreaEl = document.querySelector('.exercise-container'); // O container principal do jogo
+
+    // --- FUNÇÕES DO JOGO ---
+
+    function startQuiz() {
+        availableStories = [...allStories]; // Copia todas as histórias
+        acertos = 0;
+        tentativas = 0;
+        atualizarPlacar();
+        gameAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        loadNextStory();
+    }
+
+    function loadNextStory() {
+        if (availableStories.length === 0) {
+            gameAreaEl.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            checkBtn.style.display = 'none';
+            return;
+        }
+
+        // Reseta o estado
+        feedbackEl.textContent = '';
+        feedbackEl.className = 'feedback';
+        checkBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
+
+        // Sorteia uma história
+        const storyIndex = Math.floor(Math.random() * availableStories.length);
+        currentStory = availableStories.splice(storyIndex, 1)[0];
+
+        storyTitleEl.textContent = currentStory.title;
+        
+        // Limpa as colunas
+        sourceContainer.innerHTML = '<h3>Parágrafos Embaralhados</h3>';
+        targetContainer.innerHTML = '<h3>Sua História (Solte aqui)</h3>';
+
+        // Embaralha os parágrafos
+        const scrambledParagraphs = [...currentStory.paragraphs].sort(() => Math.random() - 0.5);
+        
+        // Adiciona os parágrafos na "source" e as caixas na "target"
+        scrambledParagraphs.forEach(text => {
+            const pBlock = createDraggableParagraph(text);
+            sourceContainer.appendChild(pBlock);
+        });
+        
+        currentStory.paragraphs.forEach((_, index) => {
+            const dropZone = createDropZone(index + 1);
+            targetContainer.appendChild(dropZone);
+        });
+
+        // Adiciona os listeners de drag/drop
+        addDragListeners();
+    }
+    
+    // --- Funções de Criação de Elementos ---
+    
+    function createDraggableParagraph(text) {
+        const pBlock = document.createElement('div');
+        pBlock.className = 'paragraph-block';
+        pBlock.textContent = text;
+        pBlock.draggable = true;
+        // Armazena o texto original para checagem
+        pBlock.dataset.originalText = text; 
+        return pBlock;
+    }
+    
+    function createDropZone(number) {
+        const zone = document.createElement('div');
+        zone.className = 'drop-zone';
+        zone.dataset.order = number;
+        return zone;
+    }
+
+    // --- Funções de Drag & Drop ---
+
+    function addDragListeners() {
+        const draggables = document.querySelectorAll('.paragraph-block');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        draggables.forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', handleDragOver);
+            zone.addEventListener('dragleave', handleDragLeave);
+            zone.addEventListener('drop', handleDrop);
+        });
+        
+        // Permite soltar de volta na caixa de origem
+        sourceContainer.addEventListener('dragover', handleDragOver);
+        sourceContainer.addEventListener('dragleave', handleDragLeave);
+        sourceContainer.addEventListener('drop', handleDrop);
+    }
+    
+    function handleDragStart() {
+        draggedItem = this; // 'this' é o .paragraph-block que começou a ser arrastado
+        this.classList.add('dragging');
+    }
+    
+    function handleDragEnd() {
+        this.classList.remove('dragging');
+        draggedItem = null;
+    }
+    
+    function handleDragOver(e) {
+        e.preventDefault(); // Necessário para permitir o 'drop'
+        if (this.classList.contains('drop-zone') || this.id === 'paragraph-source') {
+             this.classList.add('hovered');
+        }
+    }
+    
+    function handleDragLeave() {
+         this.classList.remove('hovered');
+    }
+    
+    function handleDrop(e) {
+        e.preventDefault();
+        this.classList.remove('hovered');
+
+        // 'this' é o container onde o item foi solto (ou .drop-zone ou #paragraph-source)
+        
+        // Se for um .drop-zone E estiver vazio
+        if (this.classList.contains('drop-zone') && this.children.length === 0) {
+            this.appendChild(draggedItem);
+        }
+        // Se for a caixa de origem
+        else if (this.id === 'paragraph-source') {
+            this.appendChild(draggedItem);
+        }
+    }
+
+    // --- Funções de Verificação ---
+
+    function handleCheckOrder() {
+        tentativas++;
+        
+        const dropZones = targetContainer.querySelectorAll('.drop-zone');
+        let isCorrect = true;
+        let blocksInOrder = []; // Armazena os textos que o usuário soltou
+
+        dropZones.forEach(zone => {
+            if (zone.children.length > 0) {
+                // Pega o texto do parágrafo dentro da drop-zone
+                blocksInOrder.push(zone.firstElementChild.dataset.originalText);
+            } else {
+                // Se alguma caixa estiver vazia, está incorreto
+                isCorrect = false;
+            }
+        });
+        
+        // Se a quantidade de blocos for correta, checa a ordem
+        if (isCorrect && blocksInOrder.length === currentStory.paragraphs.length) {
+            for (let i = 0; i < blocksInOrder.length; i++) {
+                if (blocksInOrder[i] !== currentStory.paragraphs[i]) {
+                    isCorrect = false;
+                    break;
+                }
+            }
+        } else {
+            isCorrect = false;
+        }
+
+        // Feedback
+        if (isCorrect) {
+            acertos++;
+            feedbackEl.textContent = "Correto! Ordem perfeita!";
+            feedbackEl.className = 'feedback correct';
+            checkBtn.style.display = 'none';
+            nextBtn.style.display = 'inline-block';
+        } else {
+            feedbackEl.textContent = "Ordem incorreta. Tente reordenar os blocos.";
+            feedbackEl.className = 'feedback incorrect';
+        }
+        
+        atualizarPlacar();
+    }
+    
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = tentativas;
+    }
+
+    // --- EVENT LISTENERS ---
+    resetBtn.addEventListener('click', startQuiz); // "Zerar Pontuação"
+    checkBtn.addEventListener('click', handleCheckOrder); // "Verificar Ordem"
+    nextBtn.addEventListener('click', loadNextStory); // "Próxima História"
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

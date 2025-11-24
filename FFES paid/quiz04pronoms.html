@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Pronomes em Inglês | FFES</title>
+    <meta name="description" content="Teste seu conhecimento sobre pronomes sujeito, objeto, possessivos e reflexivos em inglês.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        /* Este é o mesmo CSS específico da página do seu exemplo */
+        #next-question-btn {
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Teoria e Contexto em Ação: Quiz de Pronomes</h2>
+    <p>Teste seu conhecimento sobre os pronomes em inglês. Você verá uma frase incompleta e seu objetivo é escolher a opção correta para preencher a lacuna.</p>
+    <p>Este quiz mistura <strong>Pronomes Sujeito</strong> (I, you, he), <strong>Objeto</strong> (me, you, him), <strong>Adjetivos Possessivos</strong> (my, your, his), <strong>Pronomes Possessivos</strong> (mine, yours, his) e <strong>Pronomes Reflexivos</strong> (myself, yourself, himself).</p>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p id="question-prompt" class="exercise-prompt">Carregando pergunta...</p>
+                    
+                    <div id="options-container" class="mc-options">
+                        </div>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- NOVO BANCO DE DADOS DE PERGUNTAS (100 Perguntas de Pronomes) ---
+    const allQuestions = [
+        // Perguntas Originais (25)
+        { question: "Complete: '___ am very happy today.'", options: [ {text: "I", correct: true}, {text: "Me", correct: false}, {text: "My", correct: false} ] },
+        { question: "Complete: 'She told ___ a secret.'", options: [ {text: "us", correct: true}, {text: "we", correct: false}, {text: "our", correct: false} ] },
+        { question: "Complete: 'Is this ___ book?'", options: [ {text: "your", correct: true}, {text: "yours", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'This pencil is not yours, it is ___.'", options: [ {text: "mine", correct: true}, {text: "my", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'The cat is washing ___.'", options: [ {text: "itself", correct: true}, {text: "it", correct: false}, {text: "its", correct: false} ] },
+        { question: "Complete: '___ are my best friends.'", options: [ {text: "They", correct: true}, {text: "Them", correct: false}, {text: "Their", correct: false} ] },
+        { question: "Complete: 'I saw ___ at the park yesterday.'", options: [ {text: "him", correct: true}, {text: "he", correct: false}, {text: "his", correct: false} ] },
+        { question: "Complete: 'We painted the house all by ___.'", options: [ {text: "ourselves", correct: true}, {text: "us", correct: false}, {text: "our", correct: false} ] },
+        { question: "Complete: 'The dog wagged ___ tail.'", options: [ {text: "its", correct: true}, {text: "it's", correct: false}, {text: "it", correct: false} ] },
+        { question: "Complete: 'That blue coat is ___.'", options: [ {text: "hers", correct: true}, {text: "her", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'Please give ___ the keys.'", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "mine", correct: false} ] },
+        { question: "Complete: '___ needs to finish the homework.'", options: [ {text: "She", correct: true}, {text: "Her", correct: false}, {text: "Hers", correct: false} ] },
+        { question: "Complete: 'What is ___ name?'", options: [ {text: "his", correct: true}, {text: "he", correct: false}, {text: "him", correct: false} ] },
+        { question: "Complete: 'You should be proud of ___.'", options: [ {text: "yourself", correct: true}, {text: "you", correct: false}, {text: "your", correct: false} ] },
+        { question: "Complete: 'These tickets are ___.'", options: [ {text: "ours", correct: true}, {text: "our", correct: false}, {text: "us", correct: false} ] },
+        { question: "Complete: '___ and Maria are going to the party.'", options: [ {text: "He", correct: true}, {text: "Him", correct: false}, {text: "His", correct: false} ] },
+        { question: "Complete: 'The teacher asked ___ a question.' (para ela)", options: [ {text: "her", correct: true}, {text: "she", correct: false}, {text: "hers", correct: false} ] },
+        { question: "Complete: 'They lost ___ keys.' (deles)", options: [ {text: "their", correct: true}, {text: "theirs", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'This is my problem, not ___.' (seu)", options: [ {text: "yours", correct: true}, {text: "your", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'I cut ___ while cooking.'", options: [ {text: "myself", correct: true}, {text: "me", correct: false}, {text: "my", correct: false} ] },
+        { question: "Complete: '___ went to the beach.' (Nós)", options: [ {text: "We", correct: true}, {text: "Us", correct: false}, {text: "Our", correct: false} ] },
+        { question: "Complete: 'My parents called ___ last night.' (eu)", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "myself", correct: false} ] },
+        { question: "Complete: 'I need to find ___ phone.' (meu)", options: [ {text: "my", correct: true}, {text: "mine", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'The white house is ___.' (deles)", options: [ {text: "theirs", correct: true}, {text: "their", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'Did you hurt ___?' (você mesmo)", options: [ {text: "yourself", correct: true}, {text: "you", correct: false}, {text: "your", correct: false} ] },
+
+        // --- Novas Perguntas (75) ---
+        
+        // Sujeito
+        { question: "Complete: '___ is my brother.'", options: [ {text: "He", correct: true}, {text: "Him", correct: false}, {text: "His", correct: false} ] },
+        { question: "Complete: '___ are late for the meeting.' (Vocês)", options: [ {text: "You", correct: true}, {text: "Your", correct: false}, {text: "Yours", correct: false} ] },
+        { question: "Complete: '___ works at the bank.'", options: [ {text: "She", correct: true}, {text: "Her", correct: false}, {text: "Hers", correct: false} ] },
+        { question: "Complete: '___ is raining outside.'", options: [ {text: "It", correct: true}, {text: "Its", correct: false}, {text: "It's", correct: false} ] },
+        { question: "Complete: '___ love pizza.' (Eles)", options: [ {text: "They", correct: true}, {text: "Them", correct: false}, {text: "Their", correct: false} ] },
+        { question: "Complete: '___ went to the store this morning.' (Eu)", options: [ {text: "I", correct: true}, {text: "Me", correct: false}, {text: "My", correct: false} ] },
+        { question: "Complete: '___ need to talk.' (Nós)", options: [ {text: "We", correct: true}, {text: "Us", correct: false}, {text: "Our", correct: false} ] },
+        { question: "Complete: '___ is a good dog.'", options: [ {text: "He", correct: true}, {text: "Him", correct: false}, {text: "His", correct: false} ] },
+        { question: "Complete: 'Is ___ your sister?'", options: [ {text: "she", correct: true}, {text: "her", correct: false}, {text: "hers", correct: false} ] },
+        { question: "Complete: 'Where are ___ going?' (vocês)", options: [ {text: "you", correct: true}, {text: "your", correct: false}, {text: "yours", correct: false} ] },
+
+        // Objeto
+        { question: "Complete: 'He told ___ the truth.' (para mim)", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "my", correct: false} ] },
+        { question: "Complete: 'I will call ___ later.' (você)", options: [ {text: "you", correct: true}, {text: "your", correct: false}, {text: "yours", correct: false} ] },
+        { question: "Complete: 'Did you see ___?' (ele)", options: [ {text: "him", correct: true}, {text: "he", correct: false}, {text: "his", correct: false} ] },
+        { question: "Complete: 'I gave ___ the book.' (para ela)", options: [ {text: "her", correct: true}, {text: "she", correct: false}, {text: "hers", correct: false} ] },
+        { question: "Complete: 'The dog chased ___.' (o gato)", options: [ {text: "it", correct: true}, {text: "its", correct: false}, {text: "itself", correct: false} ] },
+        { question: "Complete: 'They invited ___ to the party.' (nós)", options: [ {text: "us", correct: true}, {text: "we", correct: false}, {text: "our", correct: false} ] },
+        { question: "Complete: 'I don't understand ___.' (eles)", options: [ {text: "them", correct: true}, {text: "they", correct: false}, {text: "their", correct: false} ] },
+        { question: "Complete: 'Pass ___ the salt, please.' (para mim)", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "mine", correct: false} ] },
+        { question: "Complete: 'The boss wants to see ___.' (você)", options: [ {text: "you", correct: true}, {text: "your", correct: false}, {text: "yourselves", correct: false} ] },
+        { question: "Complete: 'Can you help ___?' (nós)", options: [ {text: "us", correct: true}, {text: "we", correct: false}, {text: "our", correct: false} ] },
+        { question: "Complete: 'Listen to ___!' (mim)", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "my", correct: false} ] },
+        { question: "Complete: 'Wait for ___!' (eles)", options: [ {text: "them", correct: true}, {text: "they", correct: false}, {text: "theirs", correct: false} ] },
+        { question: "Complete: 'She is sitting next to ___.' (ele)", options: [ {text: "him", correct: true}, {text: "he", correct: false}, {text: "his", correct: false} ] },
+        { question: "Complete: 'I bought a gift for ___.' (ela)", options: [ {text: "her", correct: true}, {text: "she", correct: false}, {text: "hers", correct: false} ] },
+        { question: "Complete: 'Don't tell ___ the secret.' (eles)", options: [ {text: "them", correct: true}, {text: "they", correct: false}, {text: "their", correct: false} ] },
+
+        // Adjetivo Possessivo
+        { question: "Complete: 'Where is ___ car?' (meu)", options: [ {text: "my", correct: true}, {text: "mine", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'I like ___ new haircut.' (seu)", options: [ {text: "your", correct: true}, {text: "yours", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'This is ___ brother, Tom.' (dele)", options: [ {text: "his", correct: true}, {text: "he", correct: false}, {text: "him", correct: false} ] },
+        { question: "Complete: 'What is ___ job?' (dela)", options: [ {text: "her", correct: true}, {text: "hers", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'The cat hurt ___ paw.' (pata dela/dele)", options: [ {text: "its", correct: true}, {text: "it's", correct: false}, {text: "it", correct: false} ] },
+        { question: "Complete: 'This is ___ house.' (nossa)", options: [ {text: "our", correct: true}, {text: "ours", correct: false}, {text: "us", correct: false} ] },
+        { question: "Complete: 'I found ___ wallet.' (deles)", options: [ {text: "their", correct: true}, {text: "theirs", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'He forgot ___ keys.' (dele)", options: [ {text: "his", correct: true}, {text: "him", correct: false}, {text: "he", correct: false} ] },
+        { question: "Complete: 'She is doing ___ homework.' (dela)", options: [ {text: "her", correct: true}, {text: "she", correct: false}, {text: "hers", correct: false} ] },
+        { question: "Complete: '___ family is from Canada.' (Minha)", options: [ {text: "My", correct: true}, {text: "Mine", correct: false}, {text: "Me", correct: false} ] },
+        { question: "Complete: '___ computer is broken.' (Seu)", options: [ {text: "Your", correct: true}, {text: "Yours", correct: false}, {text: "You", correct: false} ] },
+        { question: "Complete: 'They sold ___ house.' (deles)", options: [ {text: "their", correct: true}, {text: "theirs", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'We love ___ new apartment.' (nosso)", options: [ {text: "our", correct: true}, {text: "ours", correct: false}, {text: "us", correct: false} ] },
+        { question: "Complete: 'Is this ___ bag?' (seu)", options: [ {text: "your", correct: true}, {text: "yours", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: '___ eyes are blue.' (Os olhos dela)", options: [ {text: "Her", correct: true}, {text: "Hers", correct: false}, {text: "She", correct: false} ] },
+
+        // Pronome Possessivo
+        { question: "Complete: 'The red car is ___.' (meu)", options: [ {text: "mine", correct: true}, {text: "my", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'This book is ___.' (seu)", options: [ {text: "yours", correct: true}, {text: "your", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'That phone is ___.' (dele)", options: [ {text: "his", correct: true}, {text: "he", correct: false}, {text: "him", correct: false} ] },
+        { question: "Complete: 'The responsibility is ___.' (dela)", options: [ {text: "hers", correct: true}, {text: "her", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'The choice is ___.' (nossa)", options: [ {text: "ours", correct: true}, {text: "our", correct: false}, {text: "us", correct: false} ] },
+        { question: "Complete: 'The victory is ___.' (deles)", options: [ {text: "theirs", correct: true}, {text: "their", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'This isn't my coat. Is it ___?' (seu)", options: [ {text: "yours", correct: true}, {text: "your", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'Her ideas are good, but ___ are better.' (as minhas)", options: [ {text: "mine", correct: true}, {text: "my", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'Our car is old. ___ is new.' (O deles)", options: [ {text: "Theirs", correct: true}, {text: "Their", correct: false}, {text: "Them", correct: false} ] },
+        { question: "Complete: 'This is my pencil. Where is ___?' (o seu)", options: [ {text: "yours", correct: true}, {text: "your", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'That is not their problem. It's ___.' (nosso)", options: [ {text: "ours", correct: true}, {text: "our", correct: false}, {text: "us", correct: false} ] },
+        { question: "Complete: 'This money is all ___.' (meu)", options: [ {text: "mine", correct: true}, {text: "my", correct: false}, {text: "I", correct: false} ] },
+        { question: "Complete: 'He found his keys, but she can't find ___.' (as dela)", options: [ {text: "hers", correct: true}, {text: "her", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'We finished our project. Have they finished ___?' (o deles)", options: [ {text: "theirs", correct: true}, {text: "their", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'This is my seat, and that one is ___.' (o dele)", options: [ {text: "his", correct: true}, {text: "him", correct: false}, {text: "he", correct: false} ] },
+
+        // Reflexivo
+        { question: "Complete: 'He taught ___ to play the guitar.' (a si mesmo)", options: [ {text: "himself", correct: true}, {text: "him", correct: false}, {text: "his", correct: false} ] },
+        { question: "Complete: 'She looked at ___ in the mirror.' (a si mesma)", options: [ {text: "herself", correct: true}, {text: "her", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'The computer restarted ___.' (sozinho)", options: [ {text: "itself", correct: true}, {text: "it", correct: false}, {text: "its", correct: false} ] },
+        { question: "Complete: 'We should be proud of ___.' (nós mesmos)", options: [ {text: "ourselves", correct: true}, {text: "us", correct: false}, {text: "our", correct: false} ] },
+        { question: "Complete: '(Para um grupo) Please, help ___ to some cookies.'", options: [ {text: "yourselves", correct: true}, {text: "yourself", correct: false}, {text: "your", correct: false} ] },
+        { question: "Complete: 'They are old enough to dress ___.' (a si mesmos)", options: [ {text: "themselves", correct: true}, {text: "them", correct: false}, {text: "their", correct: false} ] },
+        { question: "Complete: 'I blame ___ for the mistake.' (a mim mesmo)", options: [ {text: "myself", correct: true}, {text: "me", correct: false}, {text: "my", correct: false} ] },
+        { question: "Complete: 'Be careful, you might cut ___.' (a si mesmo)", options: [ {text: "yourself", correct: true}, {text: "you", correct: false}, {text: "your", correct: false} ] },
+        { question: "Complete: 'The children are enjoying ___.' (a si mesmos)", options: [ {text: "themselves", correct: true}, {text: "them", correct: false}, {text: "they", correct: false} ] },
+        { question: "Complete: 'He built the house by ___.' (sozinho)", options: [ {text: "himself", correct: true}, {text: "him", correct: false}, {text: "he", correct: false} ] },
+        { question: "Complete: 'She did the entire project by ___.' (sozinha)", options: [ {text: "herself", correct: true}, {text: "her", correct: false}, {text: "she", correct: false} ] },
+        { question: "Complete: 'I can't help you. You have to do it ___.' (você mesmo)", options: [ {text: "yourself", correct: true}, {text: "you", correct: false}, {text: "yours", correct: false} ] },
+        { question: "Complete: 'We promised ___ we would win.' (a nós mesmos)", options: [ {text: "ourselves", correct: true}, {text: "us", correct: false}, {text: "we", correct: false} ] },
+        { question: "Complete: 'The machine will turn ___ off.' (a si mesma)", options: [ {text: "itself", correct: true}, {text: "it", correct: false}, {text: "its", correct: false} ] },
+        { question: "Complete: 'They found ___ in a difficult situation.' (a si mesmos)", options: [ {text: "themselves", correct: true}, {text: "them", correct: false}, {text: "their", correct: false} ] },
+
+        // Misturadas / Pegadinhas
+        { question: "Complete: '___ and I are friends.' (Ela)", options: [ {text: "She", correct: true}, {text: "Her", correct: false}, {text: "Hers", correct: false} ] },
+        { question: "Complete: 'He gave the tickets to ___.' (eles)", options: [ {text: "them", correct: true}, {text: "they", correct: false}, {text: "their", correct: false} ] },
+        { question: "Complete: 'It's not ___ fault.' (minha)", options: [ {text: "my", correct: true}, {text: "mine", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'Is this ___ pen?' (seu)", options: [ {text: "your", correct: true}, {text: "yours", correct: false}, {text: "you", correct: false} ] },
+        { question: "Complete: 'The house is ___.' (deles)", options: [ {text: "theirs", correct: true}, {text: "their", correct: false}, {text: "them", correct: false} ] },
+        { question: "Complete: 'This is a photo of ___.' (mim)", options: [ {text: "me", correct: true}, {text: "I", correct: false}, {text: "myself", correct: false} ] },
+        { question: "Complete: '___ car is faster than ___.' (Meu, o seu)", options: [ {text: "My / yours", correct: true}, {text: "Mine / yours", correct: false}, {text: "My / your", correct: false} ] },
+        { question: "Complete: 'The teacher spoke to ___ parents.' (meus)", options: [ {text: "my", correct: true}, {text: "mine", correct: false}, {text: "me", correct: false} ] },
+        { question: "Complete: 'Can ___ (we/us) go to the park?'", options: [ {text: "we", correct: true}, {text: "us", correct: false}, {text: "our", correct: false} ] }
+    ];
+
+
+    // --- LÓGICA DO QUIZ (Idêntica ao seu exemplo) ---
+
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {};
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const questionPromptEl = document.getElementById('question-prompt');
+    const optionsContainerEl = document.getElementById('options-container');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+        loadNextQuestion();
+    }
+
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        optionsContainerEl.innerHTML = ''; 
+        nextQuestionBtn.style.display = 'none'; 
+
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        // Usa a propriedade 'question' (como no seu exemplo corrigido)
+        questionPromptEl.innerHTML = currentQuestion.question;
+
+        const shuffledOptions = currentQuestion.options.sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.textContent = option.text;
+            optionDiv.className = 'mc-option';
+            optionDiv.dataset.correct = option.correct;
+            optionsContainerEl.appendChild(optionDiv);
+        });
+    }
+
+    function handleOptionClick(event) {
+        const clickedOption = event.target.closest('.mc-option');
+        
+        if (!clickedOption || feedbackMessageEl.textContent !== '') {
+            return;
+        }
+
+        const isCorrect = clickedOption.dataset.correct === 'true';
+
+        if (isCorrect) {
+            clickedOption.classList.add('correct-answer');
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            clickedOption.classList.add('incorrect-answer');
+            feedbackMessageEl.textContent = 'Incorreto.';
+            feedbackMessageEl.className = 'feedback incorrect';
+            
+            const correctOption = optionsContainerEl.querySelector('[data-correct="true"]');
+            correctOption.classList.add('correct-answer');
+            erros++;
+        }
+
+        atualizarPlacar();
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    optionsContainerEl.addEventListener('click', handleOptionClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+    resetBtn.addEventListener('click', startQuiz);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+
+
+
+
+</body>
+</html>

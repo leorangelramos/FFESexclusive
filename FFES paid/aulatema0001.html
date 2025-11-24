@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz A1: Membros da Família | FFES</title>
+    <meta name="description" content="Teste seu vocabulário A1 com este quiz sobre membros da família.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Aula Temática (A1): Membros da Família</h2>
+    <p>Vamos praticar o vocabulário essencial para falar sobre sua família.</p>
+    <p>Neste quiz, você vai traduzir os nomes dos membros da família do inglês para o português e vice-versa.</p>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p id="question-prompt" class="exercise-prompt">Carregando pergunta...</p>
+                    
+                    <div id="options-container" class="mc-options">
+                        </div>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const allQuestions = [
+        { question: "Qual é a tradução de 'Father'?", options: [ {text: "Pai", correct: true}, {text: "Mãe", correct: false}, {text: "País", correct: false} ] },
+        { question: "Qual é a tradução de 'Mother'?", options: [ {text: "Mãe", correct: true}, {text: "Pai", correct: false}, {text: "Irmã", correct: false} ] },
+        { question: "Qual é a tradução de 'Brother'?", options: [ {text: "Irmão", correct: true}, {text: "Irmã", correct: false}, {text: "Primo", correct: false} ] },
+        { question: "Qual é a tradução de 'Sister'?", options: [ {text: "Irmã", correct: true}, {text: "Irmão", correct: false}, {text: "Tia", correct: false} ] },
+        { question: "Qual é a tradução de 'Parents'?", options: [ {text: "Pais (pai e mãe)", correct: true}, {text: "Parentes", correct: false}, {text: "Avós", correct: false} ] },
+        { question: "Qual é a tradução de 'Grandfather'?", options: [ {text: "Avô", correct: true}, {text: "Avó", correct: false}, {text: "Pai", correct: false} ] },
+        { question: "Qual é a tradução de 'Grandmother'?", options: [ {text: "Avó", correct: true}, {text: "Avô", correct: false}, {text: "Mãe", correct: false} ] },
+        { question: "Qual é a tradução de 'Grandparents'?", options: [ {text: "Avós", correct: true}, {text: "Pais", correct: false}, {text: "Netos", correct: false} ] },
+        { question: "Qual é a tradução de 'Son'?", options: [ {text: "Filho", correct: true}, {text: "Sol", correct: false}, {text: "Filha", correct: false} ] },
+        { question: "Qual é a tradução de 'Daughter'?", options: [ {text: "Filha", correct: true}, {text: "Filho", correct: false}, {text: "Doutora", correct: false} ] },
+        { question: "Qual é a tradução de 'Uncle'?", options: [ {text: "Tio", correct: true}, {text: "Tia", correct: false}, {text: "Primo", correct: false} ] },
+        { question: "Qual é a tradução de 'Aunt'?", options: [ {text: "Tia", correct: true}, {text: "Tio", correct: false}, {text: "Prima", correct: false} ] },
+        { question: "Qual é a tradução de 'Cousin'?", options: [ {text: "Primo / Prima", correct: true}, {text: "Irmão", correct: false}, {text: "Sobrinho", correct: false} ] },
+        { question: "Qual é a tradução de 'Nephew'?", options: [ {text: "Sobrinho", correct: true}, {text: "Sobrinha", correct: false}, {text: "Neto", correct: false} ] },
+        { question: "Qual é a tradução de 'Niece'?", options: [ {text: "Sobrinha", correct: true}, {text: "Sobrinho", correct: false}, {text: "Neta", correct: false} ] },
+        { question: "Qual é a tradução de 'Husband'?", options: [ {text: "Marido / Esposo", correct: true}, {text: "Esposa", correct: false}, {text: "Namorado", correct: false} ] },
+        { question: "Qual é a tradução de 'Wife'?", options: [ {text: "Esposa", correct: true}, {text: "Marido", correct: false}, {text: "Namorada", correct: false} ] },
+        { question: "Qual é a tradução de 'Children'?", options: [ {text: "Crianças / Filhos", correct: true}, {text: "Adultos", correct: false}, {text: "Pais", correct: false} ] },
+        { question: "Qual é a tradução de 'Grandson'?", options: [ {text: "Neto", correct: true}, {text: "Neta", correct: false}, {text: "Filho", correct: false} ] },
+        { question: "Qual é a tradução de 'Granddaughter'?", options: [ {text: "Neta", correct: true}, {text: "Neto", correct: false}, {text: "Filha", correct: false} ] },
+        { question: "Como se diz 'Irmãos' (homens e mulheres)?", options: [ {text: "Siblings", correct: true}, {text: "Brothers", correct: false}, {text: "Cousins", correct: false} ] },
+        { question: "'Mãe' em inglês é...", options: [ {text: "Mother", correct: true}, {text: "Father", correct: false}, {text: "Mutter", correct: false} ] },
+        { question: "'Pai' em inglês é...", options: [ {text: "Father", correct: true}, {text: "Mother", correct: false}, {text: "Fadder", correct: false} ] },
+        { question: "'Avô' em inglês é...", options: [ {text: "Grandfather", correct: true}, {text: "Grandmother", correct: false}, {text: "Grandparents", correct: false} ] },
+        { question: "'Filho' em inglês é...", options: [ {text: "Son", correct: true}, {text: "Sun", correct: false}, {text: "Daughter", correct: false} ] },
+    ];
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {};
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const questionPromptEl = document.getElementById('question-prompt');
+    const optionsContainerEl = document.getElementById('options-container');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+        loadNextQuestion();
+    }
+
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        optionsContainerEl.innerHTML = ''; 
+        nextQuestionBtn.style.display = 'none'; 
+
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        questionPromptEl.innerHTML = currentQuestion.question;
+
+        const shuffledOptions = currentQuestion.options.sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.textContent = option.text;
+            optionDiv.className = 'mc-option';
+            optionDiv.dataset.correct = option.correct;
+            optionsContainerEl.appendChild(optionDiv);
+        });
+    }
+
+    function handleOptionClick(event) {
+        const clickedOption = event.target.closest('.mc-option');
+        
+        if (!clickedOption || feedbackMessageEl.textContent !== '') {
+            return;
+        }
+
+        const isCorrect = clickedOption.dataset.correct === 'true';
+
+        if (isCorrect) {
+            clickedOption.classList.add('correct-answer');
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            clickedOption.classList.add('incorrect-answer');
+            feedbackMessageEl.textContent = 'Incorreto.';
+            feedbackMessageEl.className = 'feedback incorrect';
+            
+            const correctOption = optionsContainerEl.querySelector('[data-correct="true"]');
+            correctOption.classList.add('correct-answer');
+            erros++;
+        }
+
+        atualizarPlacar();
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    optionsContainerEl.addEventListener('click', handleOptionClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+    resetBtn.addEventListener('click', startQuiz);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício A1: Reescrever Frases | FFES</title>
+    <meta name="description" content="Pratique sua escrita em inglês reescrevendo frases nas formas negativa e interrogativa.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none; /* Começa escondido */
+            margin-top: 15px;
+            font-size: 1em;
+        }
+        
+        #check-btn {
+             margin-top: 15px;
+        }
+
+        /* Estilo para a frase que será reescrita */
+        #sentence-to-rewrite {
+            font-size: 1.3em; 
+            text-align: center; 
+            color: var(--cor-primaria); /* Azul escuro */
+            margin: 25px 0;
+            padding: 15px;
+            background-color: var(--cor-fundo-secao-destaque); /* Cinza claro */
+            border-radius: 8px;
+            border-left: 5px solid var(--cor-acento); /* Destaque amarelo */
+        }
+        
+        /* O input de escrita do universal.css já funciona bem */
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Exercício de Escrita (A1): Reescrever Frases</h2>
+    <p>Leia a frase e a instrução. Seu objetivo é reescrever a frase na forma correta (negativa ou interrogativa) na caixa de texto.</p>
+    <p>O sistema aceita tanto formas completas (ex: `do not`) quanto contrações (ex: `don't`).</p>
+    <hr>
+    <h4>Exemplos (Simple Present):</h4>
+    <ul>
+        <li><strong>Afirmativa:</strong> `You like pizza.`</li>
+        <li><strong>Negativa:</strong> `You do not like pizza.`</li>
+        <li><strong>Interrogativa:</strong> `Do you like pizza?`</li>
+    </ul>
+    <h4>Exemplos (Verbo 'To Be'):</h4>
+    <ul>
+        <li><strong>Afirmativa:</strong> `She is tired.`</li>
+        <li><strong>Negativa:</strong> `She is not tired.`</li>
+        <li><strong>Interrogativa:</strong> `Is she tired?`</li>
+    </ul>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p id="instruction-text" class="exercise-prompt">Carregando...</p>
+                    
+                    <p id="sentence-to-rewrite">...</p>
+                    
+                    <div id="answer-container">
+                         <input type="text" id="answer-input" class="write-input" placeholder="Escreva a frase completa aqui..." data-answer="">
+                    </div>
+                    
+                    <button id="check-btn" class="cta-button">Verificar</button>
+                    <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE PERGUNTAS (Reescrita A1) ---
+    const allQuestions = [
+        // Simple Present (do/does)
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "I like cats.", answer: "I do not like cats." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "You work here.", answer: "Do you work here?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "He plays soccer.", answer: "He does not play soccer." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "She lives in Brazil.", answer: "Does she live in Brazil?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "We go to school.", answer: "We do not go to school." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "They study English.", answer: "Do they study English?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "It rains a lot here.", answer: "It does not rain a lot here." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "He has a car.", answer: "Does he have a car?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "I want a new phone.", answer: "I do not want a new phone." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "She watches TV.", answer: "Does she watch TV?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "You speak Spanish.", answer: "You do not speak Spanish." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "They eat pasta.", answer: "Do they eat pasta?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "He needs help.", answer: "He does not need help." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "We like music.", answer: "Do we like music?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "I study in the morning.", answer: "I do not study in the morning." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "He reads books.", answer: "Does he read books?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "She understands the lesson.", answer: "She does not understand the lesson." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "I run fast.", answer: "Do I run fast?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "They know the answer.", answer: "They do not know the answer." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "Ana (She) works at a bank.", answer: "Does she work at a bank?" },
+        
+        // Verbo To Be (am/is/are)
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "I am happy.", answer: "I am not happy." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "You are tired.", answer: "Are you tired?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "He is a doctor.", answer: "He is not a doctor." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "She is tall.", answer: "Is she tall?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "It is cold today.", answer: "It is not cold today." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "We are friends.", answer: "Are we friends?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "They are students.", answer: "They are not students." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "I am late.", answer: "Am I late?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "You are from Brazil.", answer: "You are not from Brazil." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "He is hungry.", answer: "Is he hungry?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "She is my sister.", answer: "She is not my sister." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "It is sunny.", answer: "Is it sunny?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "We are busy.", answer: "We are not busy." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "They are at home.", answer: "Are they at home?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "I am a teacher.", answer: "I am not a teacher." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "The book is new.", answer: "Is the book new?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "The cats are small.", answer: "The cats are not small." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "His name is Leo.", answer: "Is his name Leo?" },
+        { instruction: "Reescreva na forma NEGATIVA:", sentence: "My friends are here.", answer: "My friends are not here." },
+        { instruction: "Reescreva na forma INTERROGATIVA:", sentence: "You are 20 years old.", answer: "Are you 20 years old?" }
+    ];
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {};
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const instructionTextEl = document.getElementById('instruction-text');
+    const sentenceToRewriteEl = document.getElementById('sentence-to-rewrite');
+    const answerInputEl = document.getElementById('answer-input');
+    const checkBtn = document.getElementById('check-btn');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    /**
+     * Função auxiliar para "normalizar" o texto (ESSENCIAL PARA ESCRITA)
+     */
+    function normalizeText(text) {
+        if (typeof text !== 'string') return '';
+        
+        return text.trim()
+                   .toLowerCase()
+                   .replace(/[.?]/g, '') // Remove pontuação
+                   .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove acentos
+                   .replace(/don't/g, 'do not')
+                   .replace(/doesn't/g, 'does not')
+                   .replace(/can't/g, 'cannot')
+                   .replace(/it's/g, 'it is')
+                   .replace(/he's/g, 'he is')
+                   .replace(/she's/g, 'she is')
+                   .replace(/what's/g, 'what is')
+                   .replace(/where's/g, 'where is')
+                   .replace(/i'm/g, 'i am')
+                   .replace(/you're/g, 'you are')
+                   .replace(/we're/g, 'we are')
+                   .replace(/they're/g, 'they are')
+                   .replace(/isn't/g, 'is not')
+                   .replace(/aren't/g, 'are not')
+                   .replace(/wasn't/g, 'was not')
+                   .replace(/weren't/g, 'were not')
+                   .replace(/won't/g, 'will not')
+                   .replace(/haven't/g, 'have not')
+                   .replace(/hasn't/g, 'has not')
+                   .replace(/hadn't/g, 'had not')
+                   .replace(/didn't/g, 'did not');
+    }
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        loadNextQuestion();
+    }
+
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        // Reseta o estado
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        answerInputEl.value = '';
+        answerInputEl.style.borderColor = 'var(--cor-borda-sutil)';
+        answerInputEl.style.backgroundColor = 'white';
+        nextQuestionBtn.style.display = 'none';
+        checkBtn.style.display = 'inline-block'; // Mostra o botão de checar
+
+        // Sorteia a pergunta
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        // Atualiza a UI
+        instructionTextEl.textContent = currentQuestion.instruction;
+        sentenceToRewriteEl.textContent = currentQuestion.sentence;
+        answerInputEl.dataset.answer = currentQuestion.answer; // Armazena a resposta
+    }
+
+    function handleCheckClick() {
+        const userAnswer = normalizeText(answerInputEl.value);
+        const correctAnswer = normalizeText(answerInputEl.dataset.answer);
+
+        if (userAnswer === "") {
+            feedbackMessageEl.textContent = "Por favor, digite uma resposta.";
+            feedbackMessageEl.className = 'feedback incorrect';
+            return;
+        }
+
+        if (userAnswer === correctAnswer) {
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            answerInputEl.style.borderColor = 'var(--cor-sucesso)';
+            answerInputEl.style.backgroundColor = '#eafaf1';
+            acertos++;
+        } else {
+            feedbackMessageEl.textContent = `Incorreto. A resposta correta é: "${currentQuestion.answer}"`;
+            feedbackMessageEl.className = 'feedback incorrect';
+            answerInputEl.style.borderColor = 'var(--cor-erro)';
+            answerInputEl.style.backgroundColor = '#fbeae8';
+            erros++;
+        }
+
+        atualizarPlacar();
+        checkBtn.style.display = 'none'; // Esconde o botão de checar
+        nextQuestionBtn.style.display = 'inline-block'; // Mostra o botão de próxima
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    resetBtn.addEventListener('click', startQuiz);
+    checkBtn.addEventListener('click', handleCheckClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+
+    // Permite apertar "Enter" para checar
+    answerInputEl.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && checkBtn.style.display !== 'none') {
+            handleCheckClick();
+        }
+    });
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>
