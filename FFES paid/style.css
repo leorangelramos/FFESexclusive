@@ -1,0 +1,275 @@
+:root {
+    --cor-primaria: #0A2342;
+    --cor-primaria-hover: #103A6B;
+    --cor-acento: #FFB81C;
+    --cor-acento-hover: #E0A114;
+    --cor-texto-escuro: #2c3e50;
+    --cor-texto-claro: #FFFFFF;
+    --cor-texto-base: #333;
+    --cor-fundo-geral: #f4f7f9;
+    --cor-fundo-secao: #ffffff;
+    --cor-fundo-secao-destaque: #ecf0f1;
+    --cor-borda-sutil: #e0e0e0;
+    --gradiente-padrao: linear-gradient(135deg, var(--cor-primaria), #0d2f5b, #ffcb4e);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor-primaria);
+    background-image: var(--gradiente-padrao);
+    color: var(--cor-texto-base);
+    line-height: 1.5; /* Reduzido levemente */
+    font-size: 14px; /* TAMANHO DE TEXTO REDUZIDO */
+    background-attachment: fixed;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Garante que o rodapé fique embaixo */
+    min-height: calc(100vh - 350px); 
+}
+
+h1, h2, h3, h4 {
+    color: var(--cor-texto-escuro);
+    text-align: center;
+}
+
+.cabecalho-container {
+    width: 100%;
+    padding: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.bloco-identidade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-and-title {
+    background: var(--gradiente-padrao);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 15px 10px; /* Padding reduzido */
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-and-title .logo-img {
+    max-height: 70px; /* Reduzido */
+    width: auto;
+    border-radius: 50%;
+}
+
+.logo-and-title h1 {
+    color: var(--cor-texto-claro);
+    font-size: 1.3em; /* Reduzido de 1.5em */
+    margin: 0;
+    text-shadow: 1px 1px 3px black;
+}
+
+.bloco-navegacao {
+    background: var(--gradiente-padrao);
+    width: 100%;
+    padding: 10px; /* Reduzido */
+    box-sizing: border-box;
+}
+
+.nav-primary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-primary a {
+    text-decoration: none;
+    color: var(--cor-texto-claro);
+    font-weight: bold;
+    font-size: 0.9em; /* Texto menor */
+    padding: 8px 16px; /* Padding menor */
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--cor-primaria-hover);
+    border: 1px solid black;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.nav-primary a:hover {
+    background-color: var(--cor-acento);
+    color: var(--cor-primaria);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- ALTERAÇÕES PARA O GRID (2 ITENS POR LINHA) --- */
+.accordion-container {
+    width: 100%;
+    max-width: 1000px; /* Aumentado levemente para caber dois itens */
+    margin: 30px auto;
+    /* Grid System */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colunas */
+    gap: 15px; /* Espaço entre os itens */
+    /* Removido o box-shadow e background do container pai para focar nos itens */
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
+}
+
+.accordion-item {
+    /* Agora cada item parece um cartão */
+    background-color: var(--cor-fundo-secao);
+    border: 1px solid var(--cor-borda-sutil);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* Remove a regra antiga que tirava a borda do último item, pois agora são cards separados */
+.accordion-item:last-child {
+    border-bottom: 1px solid var(--cor-borda-sutil);
+}
+
+.accordion-trigger {
+    width: 100%;
+    padding: 15px 20px; /* Padding reduzido */
+    background-color: var(--cor-fundo-secao);
+    border: none;
+    text-align: left;
+    font-size: 1.1em; /* TAMANHO REDUZIDO (era 1.4em) */
+    font-weight: bold;
+    color: var(--cor-primaria);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.accordion-trigger:hover {
+    background-color: var(--cor-fundo-secao-destaque);
+}
+
+.accordion-trigger::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.2em; /* Reduzido */
+    font-weight: normal;
+    transition: transform 0.3s ease;
+}
+
+.accordion-trigger.active::after {
+    transform: rotate(45deg);
+}
+
+.accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    background-color: var(--cor-fundo-secao-destaque);
+    padding: 0 20px; /* Padding lateral reduzido */
+}
+
+.accordion-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0; /* Margem reduzida */
+}
+
+.exercise-link {
+    display: block;
+    padding: 10px 15px; /* Padding reduzido */
+    margin-bottom: 6px;
+    font-size: 0.95em; /* Texto menor */
+    background-color: var(--cor-fundo-secao);
+    color: var(--cor-texto-escuro);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--cor-borda-sutil);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.exercise-link:hover {
+    background-color: var(--cor-acento-hover);
+    border-color: var(--cor-acento);
+    color: var(--cor-primaria);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.site-footer {
+    width: 100%;
+    background-image: var(--gradiente-padrao);
+    color: var(--cor-texto-claro);
+    text-align: center;
+    padding: 30px 20px; /* Reduzido */
+    margin-top: 30px;
+    box-sizing: border-box;
+}
+
+.site-footer p {
+    margin: 5px 0;
+    font-size: 0.85em; /* Reduzido */
+}
+
+.social-media-links h4 {
+    color: var(--cor-texto-claro);
+    background: none;
+    font-size: 1em; /* Reduzido */
+}
+
+.social-media-links a {
+    display: inline-block;
+    margin: 0 10px;
+    transition: transform 0.2s ease;
+}
+
+.social-media-links a:hover {
+    transform: scale(1.1);
+}
+
+.social-media-links img {
+    width: 28px; /* Reduzido */
+    height: 28px; /* Reduzido */
+}
+
+/* Responsividade: Volta para 1 coluna em telas pequenas (celulares) para não quebrar o layout */
+@media (max-width: 800px) {
+    .accordion-container {
+        grid-template-columns: 1fr; /* 1 coluna em mobile */
+    }
+    
+    .logo-and-title h1 { 
+        font-size: 1.1em; 
+    }
+    .nav-primary a { 
+        font-size: 0.8em; 
+        padding: 8px 10px;
+    }
+    .accordion-trigger {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+    .accordion-trigger::after {
+        right: 15px;
+    }
+}

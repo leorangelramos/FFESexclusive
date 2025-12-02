@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória | FFES</title>
+    <meta name="description" content="Pratique seu vocabulário em inglês com um jogo da memória interativo.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        .exercise-page-container {
+            max-width: 800px; /* Um pouco mais largo para o grid */
+        }
+
+        #memory-game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 colunas */
+            gap: 10px;
+            margin-top: 20px;
+            perspective: 1000px; /* Efeito 3D para a virada */
+        }
+
+        .memory-card {
+            background-color: transparent;
+            width: 100%;
+            height: 120px; /* Altura da carta */
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        /* A carta é 'matched' (encontrada) */
+        .memory-card.matched {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Esconde o lado de trás */
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Costas da carta (o que você vê) */
+        .card-back {
+            background-color: var(--cor-primaria-hover); /* Azul */
+            color: var(--cor-acento); /* Amarelo */
+            font-size: 2.5em;
+        }
+
+        /* Frente da carta (o que está escondido) */
+        .card-front {
+            background-color: var(--cor-fundo-secao-destaque); /* Cinza claro */
+            color: var(--cor-texto-escuro);
+            transform: rotateY(180deg);
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Pares Encontrados: <strong id="pares-encontrados">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Tentativas: <strong id="tentativas">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Embaralhar e Começar</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Jogo da Memória: Vocabulário</h2>
+    <p>Teste sua memória e seu vocabulário! Encontre os pares corretos de palavras (Inglês e Português).</p>
+    <p>Clique em uma carta para virá-la, depois clique em outra para tentar encontrar o par.</p>
+</div>
+
+        <div class="exercise-container">
+            
+            <div id="memory-game-board"></div>
+
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE PALAVRAS ---
+    // 10 pares = 20 cartas
+    const wordPairs = [
+        { en: 'Cat', pt: 'Gato' },
+        { en: 'Dog', pt: 'Cachorro' },
+        { en: 'House', pt: 'Casa' },
+        { en: 'Book', pt: 'Livro' },
+        { en: 'Water', pt: 'Água' },
+        { en: 'Eat', pt: 'Comer' },
+        { en: 'Run', pt: 'Correr' },
+        { en: 'Happy', pt: 'Feliz' },
+        { en: 'Sad', pt: 'Triste' },
+        { en: 'Apple', pt: 'Maçã' }
+    ];
+
+    // --- ELEMENTOS DO DOM ---
+    const gameBoard = document.getElementById('memory-game-board');
+    const pairsFoundEl = document.getElementById('pares-encontrados');
+    const attemptsEl = document.getElementById('tentativas');
+    const resetBtn = document.getElementById('reset-btn');
+
+    // --- VARIÁVEIS DE ESTADO DO JOGO ---
+    let cards = [];
+    let flippedCards = [];
+    let lockBoard = false; // Trava o tabuleiro para evitar 3 cliques
+    let pairsFound = 0;
+    let attempts = 0;
+
+    // --- FUNÇÕES DO JOGO ---
+
+    // 1. Inicia/Reinicia o jogo
+    function startGame() {
+        pairsFound = 0;
+        attempts = 0;
+        flippedCards = [];
+        lockBoard = false;
+        
+        atualizarPlacar();
+        createCardList();
+        shuffleCards();
+        createBoard();
+    }
+
+    // 2. Cria a lista de cartas (10 EN, 10 PT)
+    function createCardList() {
+        cards = [];
+        wordPairs.forEach(pair => {
+            cards.push({ id: pair.en, content: pair.en });
+            cards.push({ id: pair.en, content: pair.pt });
+        });
+    }
+
+    // 3. Embaralha as cartas
+    function shuffleCards() {
+        cards.sort(() => Math.random() - 0.5);
+    }
+
+    // 4. Cria o tabuleiro no HTML
+    function createBoard() {
+        gameBoard.innerHTML = ''; // Limpa o tabuleiro anterior
+        cards.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'memory-card';
+            // 'data-id' é o que usamos para checar o par (ex: "Cat")
+            cardElement.dataset.id = card.id; 
+            
+            cardElement.innerHTML = `
+                <div class="card-face card-front">${card.content}</div>
+                <div class="card-face card-back">?</div>
+            `;
+            
+            cardElement.addEventListener('click', handleCardClick);
+            gameBoard.appendChild(cardElement);
+        });
+    }
+
+    // 5. Lida com o clique na carta
+    function handleCardClick(event) {
+        const clickedCard = event.currentTarget;
+
+        // Se o tabuleiro estiver travado, a carta já estiver virada ou já for um par, ignora
+        if (lockBoard || clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) {
+            return;
+        }
+
+        // Vira a carta
+        clickedCard.classList.add('flipped');
+        flippedCards.push(clickedCard);
+
+        // Se for a segunda carta
+        if (flippedCards.length === 2) {
+            lockBoard = true; // Trava o tabuleiro
+            attempts++;
+            checkForMatch();
+            atualizarPlacar();
+        }
+    }
+
+    // 6. Checa se as duas cartas formam um par
+    function checkForMatch() {
+        const [firstCard, secondCard] = flippedCards;
+        const isMatch = firstCard.dataset.id === secondCard.dataset.id;
+
+        if (isMatch) {
+            disableCards();
+        } else {
+            unflipCards();
+        }
+    }
+
+    // 7. Se for um par (match)
+    function disableCards() {
+        pairsFound++;
+        flippedCards[0].classList.add('matched');
+        flippedCards[1].classList.add('matched');
+        
+        resetTurn();
+        checkWinCondition();
+    }
+
+    // 8. Se não for um par
+    function unflipCards() {
+        setTimeout(() => {
+            flippedCards[0].classList.remove('flipped');
+            flippedCards[1].classList.remove('flipped');
+            resetTurn();
+        }, 1200); // Espera 1.2 segundos antes de desvirar
+    }
+
+    // 9. Reseta o turno (limpa as variáveis)
+    function resetTurn() {
+        flippedCards = [];
+        lockBoard = false;
+    }
+
+    // 10. Atualiza o placar
+    function atualizarPlacar() {
+        pairsFoundEl.textContent = pairsFound;
+        attemptsEl.textContent = attempts;
+    }
+
+    // 11. Checa se o jogo acabou
+    function checkWinCondition() {
+        if (pairsFound === wordPairs.length) {
+            // Atraso para o jogador ver a última carta virar
+            setTimeout(() => {
+                alert(`Parabéns! Você encontrou todos os ${pairsFound} pares em ${attempts} tentativas!`);
+                startGame();
+            }, 500);
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+    resetBtn.addEventListener('click', startGame);
+
+    // --- INICIALIZAÇÃO ---
+    startGame();
+
+});
+</script>
+
+</body>
+</html>

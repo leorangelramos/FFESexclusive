@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Tempos Verbais | FFES</title>
+    <meta name="description" content="Teste seu conhecimento de conjugação de verbos e tempos verbais em inglês.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Teoria e Contexto em Ação: Quiz de Tempos Verbais</h2>
+    <p>Teste seu conhecimento sobre os verbos em inglês. Você verá uma pergunta direta sobre conjugação ou tradução.</p>
+    <p>Seu objetivo é escolher a resposta correta entre as três opções.</p>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p id="question-prompt" class="exercise-prompt">Carregando pergunta...</p>
+                    
+                    <div id="options-container" class="mc-options">
+                        </div>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- NOVO BANCO DE DADOS DE PERGUNTAS (100 Perguntas Diretas) ---
+    const allQuestions = [
+        // --- Simple Past (Irregular) ---
+        { question: "Qual é o passado de 'go'?", options: [ {text: "went", correct: true}, {text: "goed", correct: false}, {text: "gone", correct: false} ] },
+        { question: "Qual é o passado de 'eat'?", options: [ {text: "ate", correct: true}, {text: "eated", correct: false}, {text: "eaten", correct: false} ] },
+        { question: "Qual é o passado de 'see'?", options: [ {text: "saw", correct: true}, {text: "seed", correct: false}, {text: "seen", correct: false} ] },
+        { question: "Qual é o passado de 'do'?", options: [ {text: "did", correct: true}, {text: "done", correct: false}, {text: "doed", correct: false} ] },
+        { question: "Qual é o passado de 'have'?", options: [ {text: "had", correct: true}, {text: "haved", correct: false}, {text: "has", correct: false} ] },
+        { question: "Qual é o passado de 'buy'?", options: [ {text: "bought", correct: true}, {text: "buyed", correct: false}, {text: "boughted", correct: false} ] },
+        { question: "Qual é o passado de 'think'?", options: [ {text: "thought", correct: true}, {text: "thinked", correct: false}, {text: "thank", correct: false} ] },
+        { question: "Qual é o passado de 'take'?", options: [ {text: "took", correct: true}, {text: "taked", correct: false}, {text: "taken", correct: false} ] },
+        { question: "Qual é o passado de 'come'?", options: [ {text: "came", correct: true}, {text: "comed", correct: false}, {text: "come", correct: false} ] },
+        { question: "Qual é o passado de 'get'?", options: [ {text: "got", correct: true}, {text: "getted", correct: false}, {text: "gotten", correct: false} ] },
+        { question: "Qual é o passado de 'find'?", options: [ {text: "found", correct: true}, {text: "finded", correct: false}, {text: "fond", correct: false} ] },
+        { question: "Qual é o passado de 'give'?", options: [ {text: "gave", correct: true}, {text: "gived", correct: false}, {text: "given", correct: false} ] },
+        { question: "Qual é o passado de 'tell'?", options: [ {text: "told", correct: true}, {text: "telled", correct: false}, {text: "tolden", correct: false} ] },
+        { question: "Qual é o passado de 'make'?", options: [ {text: "made", correct: true}, {text: "maked", correct: false}, {text: "mode", correct: false} ] },
+        { question: "Qual é o passado de 'know'?", options: [ {text: "knew", correct: true}, {text: "knowed", correct: false}, {text: "known", correct: false} ] },
+        { question: "Qual é o passado de 'write'?", options: [ {text: "wrote", correct: true}, {text: "writed", correct: false}, {text: "written", correct: false} ] },
+        { question: "Qual é o passado de 'read'?", options: [ {text: "read (pron. 'red')", correct: true}, {text: "readed", correct: false}, {text: "rod", correct: false} ] },
+        { question: "Qual é o passado de 'run'?", options: [ {text: "ran", correct: true}, {text: "runned", correct: false}, {text: "run", correct: false} ] },
+        { question: "Qual é o passado de 'sleep'?", options: [ {text: "slept", correct: true}, {text: "sleeped", correct: false}, {text: "slope", correct: false} ] },
+        { question: "Qual é o passado de 'speak'?", options: [ {text: "spoke", correct: true}, {text: "speaked", correct: false}, {text: "spoken", correct: false} ] },
+
+        // --- Past Participle (Irregular) ---
+        { question: "Qual é o Particípio Passado de 'go'?", options: [ {text: "gone", correct: true}, {text: "went", correct: false}, {text: "goed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'eat'?", options: [ {text: "eaten", correct: true}, {text: "ate", correct: false}, {text: "eated", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'see'?", options: [ {text: "seen", correct: true}, {text: "saw", correct: false}, {text: "seed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'do'?", options: [ {text: "done", correct: true}, {text: "did", correct: false}, {text: "doed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'be'?", options: [ {text: "been", correct: true}, {text: "was / were", correct: false}, {text: "bed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'write'?", options: [ {text: "written", correct: true}, {text: "wrote", correct: false}, {text: "writed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'take'?", options: [ {text: "taken", correct: true}, {text: "took", correct: false}, {text: "taked", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'speak'?", options: [ {text: "spoken", correct: true}, {text: "spoke", correct: false}, {text: "speaked", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'break'?", options: [ {text: "broken", correct: true}, {text: "broke", correct: false}, {text: "breaked", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'choose'?", options: [ {text: "chosen", correct: true}, {text: "chose", correct: false}, {text: "choosed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'drive'?", options: [ {text: "driven", correct: true}, {text: "drove", correct: false}, {text: "drived", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'fly'?", options: [ {text: "flown", correct: true}, {text: "flew", correct: false}, {text: "flied", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'forget'?", options: [ {text: "forgotten", correct: true}, {text: "forgot", correct: false}, {text: "forgetted", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'give'?", options: [ {text: "given", correct: true}, {text: "gave", correct: false}, {text: "gived", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'know'?", options: [ {text: "known", correct: true}, {text: "knew", correct: false}, {text: "knowed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'swim'?", options: [ {text: "swum", correct: true}, {text: "swam", correct: false}, {text: "swimmed", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'drink'?", options: [ {text: "drunk", correct: true}, {text: "drank", correct: false}, {text: "drinked", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'begin'?", options: [ {text: "begun", correct: true}, {text: "began", correct: false}, {text: "beginned", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'fall'?", options: [ {text: "fallen", correct: true}, {text: "fell", correct: false}, {text: "falled", correct: false} ] },
+        { question: "Qual é o Particípio Passado de 'build'?", options: [ {text: "built", correct: true}, {text: "builded", correct: false}, {text: "builted", correct: false} ] },
+
+        // --- Spelling (Regular Past, ING, 3rd Person) ---
+        { question: "Qual é o passado de 'study'?", options: [ {text: "studied", correct: true}, {text: "studyed", correct: false}, {text: "studeed", correct: false} ] },
+        { question: "Qual é o passado de 'stop'?", options: [ {text: "stopped", correct: true}, {text: "stoped", correct: false}, {text: "stopd", correct: false} ] },
+        { question: "Qual é o passado de 'plan'?", options: [ {text: "planned", correct: true}, {text: "planed", correct: false}, {text: "pland", correct: false} ] },
+        { question: "Qual é o passado de 'cry'?", options: [ {text: "cried", correct: true}, {text: "cryed", correct: false}, {text: "criied", correct: false} ] },
+        { question: "Qual é o passado de 'play'?", options: [ {text: "played", correct: true}, {text: "plaied", correct: false}, {text: "playd", correct: false} ] },
+        { question: "Qual é o passado de 'like'?", options: [ {text: "liked", correct: true}, {text: "likeed", correct: false}, {text: "likd", correct: false} ] },
+        { question: "Qual é o passado de 'watch'?", options: [ {text: "watched", correct: true}, {text: "watchd", correct: false}, {text: "watchit", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'watch'?", options: [ {text: "watches", correct: true}, {text: "watchs", correct: false}, {text: "watch", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'go'?", options: [ {text: "goes", correct: true}, {text: "gos", correct: false}, {text: "go", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'study'?", options: [ {text: "studies", correct: true}, {text: "studys", correct: false}, {text: "study", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'cry'?", options: [ {text: "cries", correct: true}, {text: "crys", correct: false}, {text: "cry", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'play'?", options: [ {text: "plays", correct: true}, {text: "plaies", correct: false}, {text: "play", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'have'?", options: [ {text: "has", correct: true}, {text: "haves", correct: false}, {text: "have", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'do'?", options: [ {text: "does", correct: true}, {text: "dos", correct: false}, {text: "do", correct: false} ] },
+        { question: "Qual é a 3ª pessoa (He/She/It) de 'be'?", options: [ {text: "is", correct: true}, {text: "are", correct: false}, {text: "be", correct: false} ] },
+        { question: "Como se escreve 'run' + ING?", options: [ {text: "running", correct: true}, {text: "runing", correct: false}, {text: "runnin", correct: false} ] },
+        { question: "Como se escreve 'stop' + ING?", options: [ {text: "stopping", correct: true}, {text: "stoping", correct: false}, {text: "stopin", correct: false} ] },
+        { question: "Como se escreve 'write' + ING?", options: [ {text: "writing", correct: true}, {text: "writeing", correct: false}, {text: "writting", correct: false} ] },
+        { question: "Como se escreve 'study' + ING?", options: [ {text: "studying", correct: true}, {text: "studyng", correct: false}, {text: "studiing", correct: false} ] },
+        { question: "Como se escreve 'die' + ING?", options: [ {text: "dying", correct: true}, {text: "dieing", correct: false}, {text: "diing", correct: false} ] },
+        { question: "Como se escreve 'lie' + ING?", options: [ {text: "lying", correct: true}, {text: "lieing", correct: false}, {text: "liing", correct: false} ] },
+        { question: "Como se escreve 'live' + ING?", options: [ {text: "living", correct: true}, {text: "liveing", correct: false}, {text: "livving", correct: false} ] },
+        { question: "Como se escreve 'get' + ING?", options: [ {text: "getting", correct: true}, {text: "geting", correct: false}, {text: "gettin", correct: false} ] },
+        { question: "Como se escreve 'hope' + ING?", options: [ {text: "hoping", correct: true}, {text: "hopeing", correct: false}, {text: "hopping", correct: false} ] },
+        { question: "Como se escreve 'hop' + ING?", options: [ {text: "hopping", correct: true}, {text: "hoping", correct: false}, {text: "hoping", correct: false} ] },
+
+        // --- Translations (EN -> PT) ---
+        { question: "O que significa 'to run'?", options: [ {text: "Correr", correct: true}, {text: "Andar", correct: false}, {text: "Pular", correct: false} ] },
+        { question: "O que significa 'to eat'?", options: [ {text: "Comer", correct: true}, {text: "Beber", correct: false}, {text: "Dormir", correct: false} ] },
+        { question: "O que significa 'to sleep'?", options: [ {text: "Dormir", correct: true}, {text: "Acordar", correct: false}, {text: "Ver", correct: false} ] },
+        { question: "O que significa 'to drink'?", options: [ {text: "Beber", correct: true}, {text: "Comer", correct: false}, {text: "Falar", correct: false} ] },
+        { question: "O que significa 'to write'?", options: [ {text: "Escrever", correct: true}, {text: "Ler", correct: false}, {text: "Ouvir", correct: false} ] },
+        { question: "O que significa 'to read'?", options: [ {text: "Ler", correct: true}, {text: "Escrever", correct: false}, {text: "Dizer", correct: false} ] },
+        { question: "O que significa 'to walk'?", options: [ {text: "Andar", correct: true}, {text: "Correr", correct: false}, {text: "Voar", correct: false} ] },
+        { question: "O que significa 'to talk'?", options: [ {text: "Conversar", correct: true}, {text: "Ouvir", correct: false}, {text: "Gritar", correct: false} ] },
+        { question: "O que significa 'to listen'?", options: [ {text: "Escutar (prestar atenção)", correct: true}, {text: "Falar", correct: false}, {text: "Ouvir (sem querer)", correct: false} ] },
+        { question: "O que significa 'to see'?", options: [ {text: "Ver", correct: true}, {text: "Olhar", correct: false}, {text: "Escutar", correct: false} ] },
+        { question: "O que significa 'to buy'?", options: [ {text: "Comprar", correct: true}, {text: "Vender", correct: false}, {text: "Pagar", correct: false} ] },
+        { question: "O que significa 'to sell'?", options: [ {text: "Vender", correct: true}, {text: "Comprar", correct: false}, {text: "Trocar", correct: false} ] },
+        { question: "O que significa 'to need'?", options: [ {text: "Precisar", correct: true}, {text: "Querer", correct: false}, {text: "Ter", correct: false} ] },
+        { question: "O que significa 'to want'?", options: [ {text: "Querer", correct: true}, {text: "Precisar", correct: false}, {text: "Gostar", correct: false} ] },
+        { question: "O que significa 'to like'?", options: [ {text: "Gostar", correct: true}, {text: "Amar", correct: false}, {text: "Querer", correct: false} ] },
+        { question: "O que significa 'to love'?", options: [ {text: "Amar", correct: true}, {text: "Gostar", correct: false}, {text: "Viver", correct: false} ] },
+        { question: "O que significa 'to live'?", options: [ {text: "Morar / Viver", correct: true}, {text: "Sair", correct: false}, {text: "Chegar", correct: false} ] },
+        { question: "O que significa 'to work'?", options: [ {text: "Trabalhar", correct: true}, {text: "Jogar", correct: false}, {text: "Estudar", correct: false} ] },
+        { question: "O que significa 'to study'?", options: [ {text: "Estudar", correct: true}, {text: "Ensinar", correct: false}, {text: "Aprender", correct: false} ] },
+        { question: "O que significa 'to teach'?", options: [ {text: "Ensinar", correct: true}, {text: "Aprender", correct: false}, {text: "Estudar", correct: false} ] },
+
+        // --- Translations (PT -> EN) ---
+        { question: "Como se diz 'Falar' (idiomas)?", options: [ {text: "to Speak", correct: true}, {text: "to See", correct: false}, {text: "to Sleep", correct: false} ] },
+        { question: "Como se diz 'Beber'?", options: [ {text: "to Drink", correct: true}, {text: "to Eat", correct: false}, {text: "to Do", correct: false} ] },
+        { question: "Como se diz 'Fazer' (tarefas)?", options: [ {text: "to Do", correct: true}, {text: "to Go", correct: false}, {text: "to Get", correct: false} ] },
+        { question: "Como se diz 'Fazer' (criar)?", options: [ {text: "to Make", correct: true}, {text: "to Do", correct: false}, {text: "to Be", correct: false} ] },
+        { question: "Como se diz 'Ir'?", options: [ {text: "to Go", correct: true}, {text: "to Do", correct: false}, {text: "to Be", correct: false} ] },
+        { question: "Como se diz 'Ser / Estar'?", options: [ {text: "to Be", correct: true}, {text: "to Have", correct: false}, {text: "to Do", correct: false} ] },
+        { question: "Como se diz 'Ter'?", options: [ {text: "to Have", correct: true}, {text: "to Be", correct: false}, {text: "to Get", correct: false} ] },
+        { question: "Como se diz 'Poder' (habilidade)?", options: [ {text: "Can", correct: true}, {text: "May", correct: false}, {text: "Should", correct: false} ] },
+        { question: "Como se diz 'Dever' (conselho)?", options: [ {text: "Should", correct: true}, {text: "Must", correct: false}, {text: "Would", correct: false} ] },
+        { question: "Como se diz 'Dever' (obrigação)?", options: [ {text: "Must", correct: true}, {text: "Should", correct: false}, {text: "Can", correct: false} ] },
+        { question: "Como se diz 'Saber / Conhecer'?", options: [ {text: "to Know", correct: true}, {text: "to Now", correct: false}, {text: "to New", correct: false} ] },
+        { question: "Como se diz 'Vir'?", options: [ {text: "to Come", correct: true}, {text: "to Go", correct: false}, {text: "to Call", correct: false} ] },
+        { question: "Como se diz 'Pegar / Levar'?", options: [ {text: "to Take", correct: true}, {text: "to Give", correct: false}, {text: "to Put", correct: false} ] },
+        { question: "Como se diz 'Dar'?", options: [ {text: "to Give", correct: true}, {text: "to Take", correct: false}, {text: "to Get", correct: false} ] },
+        { question: "Como se diz 'Colocar / Pôr'?", options: [ {text: "to Put", correct: true}, {text: "to Place", correct: false}, {text: "to Pull", correct: false} ] },
+    ];
+
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {};
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    const questionPromptEl = document.getElementById('question-prompt');
+    const optionsContainerEl = document.getElementById('options-container');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+        loadNextQuestion();
+    }
+
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        optionsContainerEl.innerHTML = ''; 
+        nextQuestionBtn.style.display = 'none'; 
+
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        // ########## CORREÇÃO APLICADA AQUI ##########
+        // Agora, ele usa a propriedade 'question' em vez de 'sentence'
+        questionPromptEl.innerHTML = currentQuestion.question;
+
+        const shuffledOptions = currentQuestion.options.sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.textContent = option.text;
+            optionDiv.className = 'mc-option';
+            optionDiv.dataset.correct = option.correct;
+            optionsContainerEl.appendChild(optionDiv);
+        });
+    }
+
+    function handleOptionClick(event) {
+        const clickedOption = event.target.closest('.mc-option');
+        
+        if (!clickedOption || feedbackMessageEl.textContent !== '') {
+            return;
+        }
+
+        const isCorrect = clickedOption.dataset.correct === 'true';
+
+        if (isCorrect) {
+            clickedOption.classList.add('correct-answer');
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            clickedOption.classList.add('incorrect-answer');
+            feedbackMessageEl.textContent = 'Incorreto.';
+            feedbackMessageEl.className = 'feedback incorrect';
+            
+            const correctOption = optionsContainerEl.querySelector('[data-correct="true"]');
+            correctOption.classList.add('correct-answer');
+            erros++;
+        }
+
+        atualizarPlacar();
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    optionsContainerEl.addEventListener('click', handleOptionClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+    resetBtn.addEventListener('click', startQuiz);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

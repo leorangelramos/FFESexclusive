@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Conectores (Linking Words) | FFES</title>
+    <meta name="description" content="Pratique conectores e linking words (but, so, because, although, etc.) com este quiz de preencher lacunas.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+
+    <style>
+        #next-question-btn {
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 1em;
+        }
+        
+        /* 3. "CAIXA VAZIA" (CSS) REMOVIDA */
+        /* O estilo para #sentence-display foi removido daqui */
+
+    </style>
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Teoria e Contexto em Ação: Conectores (Linking Words)</h2>
+    <p>Conectores (ou *Linking Words*) são palavras que usamos para ligar ideias, frases ou parágrafos. Eles dão sentido e fluidez ao texto.</p>
+    <p>Seu objetivo é ler a frase e escolher o conector que preenche a lacuna corretamente, baseado no sentido.</p>
+    <hr>
+    <h4>Exemplos de Categorias:</h4>
+    <ul>
+        <li><strong>Contraste (oposição):</strong> but, however, although, despite.
+            <ul><li><em>I like tea, <strong>but</strong> she likes coffee.</em></li></ul>
+        </li>
+        <li><strong>Adição:</strong> and, also, moreover, in addition.
+            <ul><li><em>He is smart <strong>and</strong> funny.</em></li></ul>
+        </li>
+        <li><strong>Causa (motivo):</strong> because, as, since.
+            <ul><li><em>I stayed home <strong>because</strong> I was sick.</em></li></ul>
+        </li>
+        <li><strong>Resultado (consequência):</strong> so, therefore, as a result.
+            <ul><li><em>He was sick, <strong>so</strong> he stayed home.</em></li></ul>
+        </li>
+    </ul>
+</div>
+
+
+        <div class="exercise-container">
+            
+            <div id="quiz-area">
+                <div class="exercise-card">
+                    
+                    <p id="question-prompt" class="exercise-prompt">Carregando pergunta...</p>
+                    
+                    <div id="options-container" class="mc-options">
+                        </div>
+                    
+                    <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+
+            <button id="next-question-btn" class="cta-button">Próxima Pergunta</button>
+            
+            <div id="quiz-complete" class="exercise-card" style="display: none; text-align: center;">
+                <h2>Quiz Concluído!</h2>
+                <p>Você respondeu todas as perguntas.</p>
+                <p>Use o botão "Zerar Pontuação" acima para tentar novamente.</p>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        <div class="social-media-links">
+            <h4>Siga-me nas redes sociais</h4>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" title="YouTube"><img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png" alt="YouTube"></a>
+            <a href="https://www.instagram.com/teacherleoramos/" target="_blank" title="Instagram"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@teacherleoramos" target="_blank" title="TikTok"><img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok.png" alt="TikTok"></a>
+            <a href="https://wa.me/5511955582118" target="_blank" title="WhatsApp"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp"></a>
+        </div>
+        <p><strong>Contato</strong></p>
+        <p>Youtube: @teacherleoramos | Telefone - WhatsApp: (11) 95558-2118</p>
+        <p>Endereço: São Paulo, SP, Brasil</p>
+        <p>CNPJ: 43.226.983/0001-91</p>
+        <p>&copy; 2025 | FEATHERED FRIENDS ENGLISH SCHOOL - FFES. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS DE PERGUNTAS (Conectores) ---
+    const allQuestions = [
+        { sentence: "I like tea, [_____] she prefers coffee.", options: [ {text: "but", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "He studied hard, [_____] he failed the test.", options: [ {text: "but", correct: true}, {text: "so", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "It was raining; [_____], we went to the park.", options: [ {text: "however", correct: true}, {text: "so", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "[_____] it was cold, he went out without a jacket.", options: [ {text: "Although", correct: true}, {text: "Because", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "She is very rich, [_____] she isn't happy.", options: [ {text: "yet", correct: true}, {text: "so", correct: false}, {text: "for", correct: false} ] },
+        { sentence: "I wanted to go, [_____] I was too tired.", options: [ {text: "but", correct: true}, {text: "and", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "[_____] the rain, the game was not canceled.", options: [ {text: "Despite", correct: true}, {text: "Although", correct: false}, {text: "Because", correct: false} ] },
+        { sentence: "He likes dogs, [_____] his brother prefers cats.", options: [ {text: "whereas", correct: true}, {text: "so", correct: false}, {text: "also", correct: false} ] },
+        { sentence: "[_____] he is young, he is very wise.", options: [ {text: "Even though", correct: true}, {text: "Because of", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "We went for a walk [_____] the bad weather.", options: [ {text: "in spite of", correct: true}, {text: "although", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "We ate pizza [_____] pasta.", options: [ {text: "and", correct: true}, {text: "but", correct: false}, {text: "or", correct: false} ] },
+        { sentence: "She is smart [_____] funny.", options: [ {text: "and", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "He plays the guitar. [_____], he sings.", options: [ {text: "Also", correct: true}, {text: "But", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "The food was delicious. [_____], the service was excellent.", options: [ {text: "Moreover", correct: true}, {text: "However", correct: false}, {text: "Yet", correct: false} ] },
+        { sentence: "It's a great car. [_____], it's very expensive.", options: [ {text: "Furthermore", correct: true}, {text: "But", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "I need to buy milk [_____] eggs.", options: [ {text: "and", correct: true}, {text: "or", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "In [_____] to the main course, we had dessert.", options: [ {text: "addition", correct: true}, {text: "contrast", correct: false}, {text: "result", correct: false} ] },
+        { sentence: "He speaks English [_____] Spanish.", options: [ {text: "and", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "The hotel was cheap [_____] clean.", options: [ {text: "and", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "She likes reading, [_____] she enjoys hiking.", options: [ {text: "also", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I stayed home [_____] I was sick.", options: [ {text: "because", correct: true}, {text: "although", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "[_____] it's late, we should go.", options: [ {text: "Since", correct: true}, {text: "But", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "We were late [_____] the traffic.", options: [ {text: "because of", correct: true}, {text: "because", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "He failed [_____] his lack of study.", options: [ {text: "due to", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] he was tired, he went to bed.", options: [ {text: "As", correct: true}, {text: "Although", correct: false}, {text: "But", correct: false} ] },
+        { sentence: "I'm learning English [_____] I want a better job.", options: [ {text: "because", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "[_____] the storm, the flight was delayed.", options: [ {text: "Because of", correct: true}, {text: "Although", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "She was happy [_____] she won the prize.", options: [ {text: "because", correct: true}, {text: "but", correct: false}, {text: "yet", correct: false} ] },
+        { sentence: "He couldn't play [_____] his injury.", options: [ {text: "due to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "[_____] you're here, you can help me.", options: [ {text: "Since", correct: true}, {text: "But", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "He was sick, [_____] he didn't go to work.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "She studied a lot; [_____], she passed the exam.", options: [ {text: "therefore", correct: true}, {text: "however", correct: false}, {text: "yet", correct: false} ] },
+        { sentence: "It was raining, [_____] we stayed inside.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "The company lost money. [_____], they fired some employees.", options: [ {text: "As a result", correct: true}, {text: "However", correct: false}, {text: "Also", correct: false} ] },
+        { sentence: "He missed the bus, [_____] he was late.", options: [ {text: "consequently", correct: true}, {text: "but", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "I was hungry, [_____] I ate a sandwich.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "The weather was bad. [_____], the picnic was canceled.", options: [ {text: "Therefore", correct: true}, {text: "However", correct: false}, {text: "Also", correct: false} ] },
+        { sentence: "He didn't study, [_____] he failed.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "She is very talented; [_____], she got the job.", options: [ {text: "consequently", correct: true}, {text: "however", correct: false}, {text: "although", correct: false} ] },
+        { sentence: "I forgot my wallet, [_____] I couldn't buy anything.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "I'm studying hard [_____] pass the test.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "She saved money [_____] buy a new car.", options: [ {text: "in order to", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "He exercises [_____] stay healthy.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "I woke up early [_____] I wouldn't be late.", options: [ {text: "so that", correct: true}, {text: "because", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "She is wearing glasses [_____] see better.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "They are working hard [_____] finish the project.", options: [ {text: "in order to", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "Please be quiet [_____] I can sleep.", options: [ {text: "so that", correct: true}, {text: "because", correct: false}, {text: "although", correct: false} ] },
+        { sentence: "He is here [_____] help us.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "I study English [_____] travel.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "She left a message [_____] he would know where she was.", options: [ {text: "so that", correct: true}, {text: "because", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "I'll call you [_____] I get home.", options: [ {text: "when", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "He was reading [_____] I was cooking.", options: [ {text: "while", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] the movie, we went for dinner.", options: [ {text: "After", correct: true}, {text: "Before", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "Brush your teeth [_____] you go to bed.", options: [ {text: "before", correct: true}, {text: "after", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I was watching TV [_____] the phone rang.", options: [ {text: "when", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "First, mix the flour; [_____], add the eggs.", options: [ {text: "then", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "She arrived [_____] he left.", options: [ {text: "after", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] I was walking, I saw a friend.", options: [ {text: "While", correct: true}, {text: "So", correct: false}, {text: "But", correct: false} ] },
+        { sentence: "I'll finish this [_____] I leave.", options: [ {text: "before", correct: true}, {text: "after", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "We waited [_____] the bus arrived.", options: [ {text: "until", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "He likes fruits, [_____] apples and bananas.", options: [ {text: "such as", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "There are many things to do, [_____], hiking or swimming.", options: [ {text: "for example", correct: true}, {text: "however", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "She speaks several languages, [_____], French and Spanish.", options: [ {text: "for instance", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I love citrus fruits, [_____] oranges and lemons.", options: [ {text: "such as", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "Many countries, [_____] Brazil, speak Portuguese.", options: [ {text: "for example", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "He has many hobbies, [_____] painting and reading.", options: [ {text: "such as", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "We visited several cities, [_____], Paris and Rome.", options: [ {text: "for instance", correct: true}, {text: "however", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "Some animals, [_____] dogs, are very loyal.", options: [ {text: "such as", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "She enjoys water sports, [_____], surfing.", options: [ {text: "for example", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I need to buy vegetables, [_____] carrots and broccoli.", options: [ {text: "such as", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I will go [_____] it rains.", options: [ {text: "if", correct: true}, {text: "unless", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "You will fail [_____] you study.", options: [ {text: "unless", correct: true}, {text: "if", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] you are tired, go to sleep.", options: [ {text: "If", correct: true}, {text: "So", correct: false}, {text: "But", correct: false} ] },
+        { sentence: "I won't go [_____] you come with me.", options: [ {text: "unless", correct: true}, {text: "if", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "[_____] I had money, I would buy a car.", options: [ {text: "If", correct: true}, {text: "So", correct: false}, {text: "But", correct: false} ] },
+        { sentence: "He will be angry [_____] you tell him the truth.", options: [ {text: "if", correct: true}, {text: "unless", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "Don't call me [_____] it's an emergency.", options: [ {text: "unless", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "[_____] it's sunny, we'll go to the beach.", options: [ {text: "If", correct: true}, {text: "But", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "The plant will die [_____] you water it.", options: [ {text: "unless", correct: true}, {text: "if", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] I see him, I will tell him.", options: [ {text: "If", correct: true}, {text: "So", correct: false}, {text: "But", correct: false} ] },
+        { sentence: "I like him, [_____] he is a bit annoying.", options: [ {text: "although", correct: true}, {text: "because", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "It's cold outside, [_____] you should wear a coat.", options: [ {text: "so", correct: true}, {text: "but", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "She speaks slowly [_____] clearly.", options: [ {text: "and", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I'll wait here [_____] you are ready.", options: [ {text: "until", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "He is smart; [_____], he is very lazy.", options: [ {text: "however", correct: true}, {text: "therefore", correct: false}, {text: "also", correct: false} ] },
+        { sentence: "I'm not going out [_____] it stops raining.", options: [ {text: "until", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "[_____] he's my friend, I can't help him.", options: [ {text: "Although", correct: true}, {text: "Because", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "We missed the train. [_____], we had to take a taxi.", options: [ {text: "As a result", correct: true}, {text: "However", correct: false}, {text: "Also", correct: false} ] },
+        { sentence: "I like coffee, [_____] my wife prefers tea.", options: [ {text: "whereas", correct: true}, {text: "so", correct: false}, {text: "because", correct: false} ] },
+        { sentence: "He failed the exam [_____] he didn't study.", options: [ {text: "because", correct: true}, {text: "although", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "She is not only famous [_____] very rich.", options: [ {text: "but also", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "I'll go to the party [_____] I'm tired.", options: [ {text: "even though", correct: true}, {text: "because", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "He ran fast [_____] catch the bus.", options: [ {text: "to", correct: true}, {text: "so", correct: false}, {text: "and", correct: false} ] },
+        { sentence: "I'm saving money [_____] I can travel.", options: [ {text: "so that", correct: true}, {text: "because", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "She is learning English. [_____], she is studying French.", options: [ {text: "In addition", correct: true}, {text: "However", correct: false}, {text: "So", correct: false} ] },
+        { sentence: "I don't like spinach. [_____], I love broccoli.", options: [ {text: "On the other hand", correct: true}, {text: "So", correct: false}, {text: "Because", correct: false} ] },
+        { sentence: "He's rich; [_____], he's not very generous.", options: [ {text: "however", correct: true}, {text: "therefore", correct: false}, {text: "also", correct: false} ] },
+        { sentence: "First, I'll call him; [_____], I'll send an email.", options: [ {text: "then", correct: true}, {text: "but", correct: false}, {text: "so", correct: false} ] },
+        { sentence: "I can't help you [_____] you tell me the problem.", options: [ {text: "unless", correct: true}, {text: "so", correct: false}, {text: "but", correct: false} ] },
+        { sentence: "He was late. [_____], his boss was angry.", options: [ {text: "Consequently", correct: true}, {text: "However", correct: false}, {text: "Also", correct: false} ] }
+    ];
+
+    // --- VARIÁVEIS DE ESTADO DO QUIZ ---
+    let acertos = 0;
+    let erros = 0;
+    let availableQuestions = [];
+    let currentQuestion = {};
+
+    // --- ELEMENTOS DO DOM ---
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+    
+    // 6. "CAIXA VAZIA" (JS) REMOVIDA
+    // const sentenceDisplayEl = document.getElementById('sentence-display'); 
+    
+    const questionPromptEl = document.getElementById('question-prompt');
+    const optionsContainerEl = document.getElementById('options-container');
+    const feedbackMessageEl = document.getElementById('feedback-message');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const quizAreaEl = document.getElementById('quiz-area');
+    const quizCompleteEl = document.getElementById('quiz-complete');
+
+    // --- FUNÇÕES DO QUIZ ---
+
+    function startQuiz() {
+        availableQuestions = [...allQuestions];
+        acertos = 0;
+        erros = 0;
+        atualizarPlacar();
+        quizAreaEl.style.display = 'block';
+        quizCompleteEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+        
+        // Esta linha não é mais necessária, pois o elemento foi removido
+        // if (sentenceDisplayEl) { sentenceDisplayEl.style.display = 'none'; }
+        
+        loadNextQuestion();
+    }
+
+    function loadNextQuestion() {
+        if (availableQuestions.length === 0) {
+            quizAreaEl.style.display = 'none';
+            nextQuestionBtn.style.display = 'none';
+            quizCompleteEl.style.display = 'block';
+            return;
+        }
+
+        feedbackMessageEl.textContent = '';
+        feedbackMessageEl.className = 'feedback';
+        optionsContainerEl.innerHTML = ''; 
+        nextQuestionBtn.style.display = 'none'; 
+
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions.splice(questionIndex, 1)[0]; 
+
+        // 7. MELHORIA VISUAL APLICADA
+        // Carrega a frase e destaca a lacuna em vermelho
+        const formattedSentence = currentQuestion.sentence.replace(
+            "[_____]", 
+            "<strong style='color: #c0392b; font-size: 1.1em;'>[_____]</strong>"
+        );
+        questionPromptEl.innerHTML = formattedSentence;
+
+        const shuffledOptions = currentQuestion.options.sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.textContent = option.text;
+            optionDiv.className = 'mc-option';
+            optionDiv.dataset.correct = option.correct;
+            optionsContainerEl.appendChild(optionDiv);
+        });
+    }
+
+    function handleOptionClick(event) {
+        const clickedOption = event.target.closest('.mc-option');
+        
+        if (!clickedOption || feedbackMessageEl.textContent !== '') {
+            return;
+        }
+
+        const isCorrect = clickedOption.dataset.correct === 'true';
+
+        if (isCorrect) {
+            clickedOption.classList.add('correct-answer');
+            feedbackMessageEl.textContent = 'Correto!';
+            feedbackMessageEl.className = 'feedback correct';
+            acertos++;
+        } else {
+            clickedOption.classList.add('incorrect-answer');
+            feedbackMessageEl.textContent = 'Incorreto.';
+            feedbackMessageEl.className = 'feedback incorrect';
+            
+            const correctOption = optionsContainerEl.querySelector('[data-correct="true"]');
+            correctOption.classList.add('correct-answer');
+            erros++;
+        }
+
+        atualizarPlacar();
+        nextQuestionBtn.style.display = 'block';
+    }
+
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // --- EVENT LISTENERS ---
+    optionsContainerEl.addEventListener('click', handleOptionClick);
+    nextQuestionBtn.addEventListener('click', loadNextQuestion);
+    resetBtn.addEventListener('click', startQuiz);
+
+    // --- INICIALIZAÇÃO ---
+    startQuiz();
+
+});
+</script>
+
+</body>
+</html>

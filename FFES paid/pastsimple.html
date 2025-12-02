@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício: Passado Simples | FFES</title>
+    <meta name="description" content="Pratique o Passado Simples (verbos regulares, irregulares e o auxiliar 'did') com exercícios de múltipla escolha, escrita, preencher lacunas e ordenação de frases.">
+    <link rel="icon" type="image/png" href="logofavicion.png">
+    
+    <link rel="stylesheet" href="universal.css">
+</head>
+<body>
+
+<div class="cabecalho-container">
+    <header class="bloco-identidade">
+        <div class="logo-and-title">
+            <a href="index.html">
+                <img src="logo novo grande.png" alt="Logo FFES" class="logo-img">
+            </a>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" style="text-decoration: none; color: inherit;">
+                <h1>Leo Ramos | Professor de Inglês</h1>
+            </a>
+        </div>
+    </header>
+     <div class="bloco-navegacao"> 
+        <nav class="nav-primary">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<main>
+
+    <div id="placar-geral-container">
+        <p>Acertos: <strong id="acertos-geral">0</strong></p>
+        <a href="#contato" class="nav-arrow" title="Ir para o final da página">&#11015;</a>
+        <p>Erros: <strong id="erros-geral">0</strong></p>
+    </div>
+    <button id="reset-btn" class="cta-button">Zerar Pontuação</button>
+
+    <div class="exercise-page-container">
+        
+<div class="theory-box">
+    <h2>Teoria e Contexto em Ação: Passado Simples (DID)</h2>
+    <p><strong>Veja em ação:</strong><br>
+        <em>John: "Hi Ana. <strong>Did you work</strong> yesterday?"<br>
+        Ana: "No, <strong>I did not work</strong> yesterday. <strong>I worked</strong> this morning."</em>
+    </p>
+    <p>Usamos o <strong>Passado Simples</strong> para falar de ações que começaram e terminaram no passado. Para negar e perguntar, usamos o auxiliar <strong>DID</strong>.</p>
+    <ul>
+        <li><strong>Afirmativa:</strong> O verbo muda. Se for regular, adicionamos <strong>-ED</strong> (ex: work -> work<strong>ed</strong>). Se for irregular, ele muda de forma (ex: go -> <strong>went</strong>).</li>
+        <li><strong>Negativa e Interrogativa:</strong> Usamos <strong>DID</strong> para *todas* as pessoas (I, You, He, She, It, We, They).</li>
+        <li><strong>IMPORTANTE:</strong> Quando usamos <strong>DID</strong> ou <strong>DID NOT</strong>, o verbo principal volta para a forma base (sem -ed ou sem a forma irregular).</li>
+    </ul>
+
+    <hr>
+
+    <h4>Exemplos Práticos da Estrutura:</h4>
+
+    <p><strong>Verbo Regular (Work):</strong></p>
+    <ul>
+        <li><em><strong>Afirmativa:</strong> I work<strong>ed</strong>.</em></li>
+        <li><em><strong>Negativa:</strong> I <strong>did not</strong> work.</em> (Verbo 'work' volta ao normal)</li>
+        <li><em><strong>Interrogativa:</strong> <strong>Did</strong> I work?</em> (Verbo 'work' volta ao normal)</li>
+    </ul>
+    <ul>
+        <li><em><strong>Afirmativa:</strong> She work<strong>ed</strong>.</em></li>
+        <li><em><strong>Negativa:</strong> She <strong>did not</strong> work.</em></li>
+        <li><em><strong>Interrogativa:</strong> <strong>Did</strong> she work?</em></li>
+    </ul>
+
+    <p><strong>Verbo Irregular (Go):</strong></p>
+    <ul>
+        <li><em><strong>Afirmativa:</strong> They <strong>went</strong>.</em> (Forma irregular)</li>
+        <li><em><strong>Negativa:</strong> They <strong>did not</strong> go.</em> (Verbo 'go' volta ao normal)</li>
+        <li><em><strong>Interrogativa:</strong> <strong>Did</strong> they go?</em> (Verbo 'go' volta ao normal)</li>
+    </ul>
+</div>
+
+
+        <div class="exercise-container">
+            <div class="mode-selector">
+                <button id="mc-btn" class="mode-btn active">Múltipla Escolha</button>
+                <button id="write-btn" class="mode-btn">Escrever</button>
+                <button id="fill-btn" class="mode-btn">Preencher Lacunas</button>
+                <button id="scramble-btn" class="mode-btn">Ordenar Frases</button>
+            </div>
+
+            <div id="mc-exercises" class="exercise-mode" style="display:block;">
+                <div class="exercise-card"><p class="exercise-prompt"> Escolha a forma correta (Afirmativa, Negativa e Interrogativa): <br> <strong>1.</strong> "Eu comi." (Verbo: eat)</p><div class="mc-options"><div class="mc-option" data-correct="true">a) I ate / I did not eat / Did I eat?</div><div class="mc-option">b) I eated / I did not ate / Did I eated?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>2.</strong> "Ela trabalhou." (Verbo: work)</p><div class="mc-options"><div class="mc-option">a) She work / She did not worked / Did she worked?</div><div class="mc-option" data-correct="true">b) She worked / She did not work / Did she work?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>3.</strong> "Eles jogaram." (Verbo: play)</p><div class="mc-options"><div class="mc-option" data-correct="true">a) They played / They did not play / Did they play?</div><div class="mc-option">b) They plaied / They did not plaied / Did they plaied?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>4.</strong> "Ele assistiu TV." (Verbo: watch)</p><div class="mc-options"><div class="mc-option">a) He watch / He did not watched / Did he watched?</div><div class="mc-option" data-correct="true">b) He watched / He did not watch / Did he watch?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>5.</strong> "Nós estudamos." (Verbo: study)</p><div class="mc-options"><div class="mc-option" data-correct="true">a) We studied / We did not study / Did we study?</div><div class="mc-option">b) We studyed / We did not studyed / Did we studyed?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>6.</strong> "Você leu." (Verbo: read)</p><div class="mc-options"><div class="mc-option">a) You readed / You did not readed / Did you readed?</div><div class="mc-option" data-correct="true">b) You read / You did not read / Did you read?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>7.</strong> "O gato dormiu." (Verbo: sleep)</p><div class="mc-options"><div class="mc-option" data-correct="true">a) The cat slept / It did not sleep / Did it sleep?</div><div class="mc-option">b) The cat sleeped / It did not sleeped / Did it sleeped?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>8.</strong> "Eu dirigi." (Verbo: drive)</p><div class="mc-options"><div class="mc-option">a) I drived / I did not drived / Did I drived?</div><div class="mc-option" data-correct="true">b) I drove / I did not drive / Did I drive?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>9.</strong> "Ela cozinhou." (Verbo: cook)</p><div class="mc-options"><div class="mc-option" data-correct="true">a) She cooked / She did not cook / Did she cook?</div><div class="mc-option">b) She cook / She did not cooked / Did she cooked?</div></div><div class="feedback"></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>10.</strong> "Eles correram." (Verbo: run)</p><div class="mc-options"><div class="mc-option">a) They runned / They did not runned / Did they runned?</div><div class="mc-option" data-correct="true">b) They ran / They did not run / Did they run?</div></div><div class="feedback"></div></div>
+            </div>
+
+            <div id="write-exercises" class="exercise-mode" style="display:none;">
+                <div class="exercise-card"><p class="exercise-prompt">Escreva as frases em inglês nas formas afirmativas, negativas e interrogativas: <br><strong>1.</strong> Traduza "Eu comi"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="i ate"><label>Negativa:</label><input type="text" class="write-input" data-answer="i did not eat"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did i eat?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>2.</strong> Traduza "Ela trabalhou"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="she worked"><label>Negativa:</label><input type="text" class="write-input" data-answer="she did not work"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did she work?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>3.</strong> Traduza "Eles jogaram"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="they played"><label>Negativa:</label><input type="text" class="write-input" data-answer="they did not play"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did they play?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>4.</strong> Traduza "Ele assistiu TV"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="he watched tv"><label>Negativa:</label><input type="text" class="write-input" data-answer="he did not watch tv"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did he watch tv?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>5.</strong> Traduza "Nós estudamos"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="we studied"><label>Negativa:</label><input type="text" class="write-input" data-answer="we did not study"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did we study?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>6.</strong> Traduza "Você leu"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="you read"><label>Negativa:</label><input type="text" class="write-input" data-answer="you did not read"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did you read?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>7.</strong> Traduza "O gato dormiu"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="the cat slept"><label>Negativa:</label><input type="text" class="write-input" data-answer="it did not sleep"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did it sleep?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>8.</strong> Traduza "Eu dirigi"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="i drove"><label>Negativa:</label><input type="text" class="write-input" data-answer="i did not drive"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did i drive?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>9.</strong> Traduza "Ela cozinhou"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="she cooked"><label>Negativa:</label><input type="text" class="write-input" data-answer="she did not cook"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did she cook?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>10.</strong> Traduza "Eles correram"</p><div class="write-group"><label>Afirmativa:</label><input type="text" class="write-input" data-answer="they ran"><label>Negativa:</label><input type="text" class="write-input" data-answer="they did not run"><label>Interrogativa:</label><input type="text" class="write-input" data-answer="did they run?"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+            </div>
+
+            <div id="fill-exercises" class="exercise-mode" style="display:none;">
+                <div class="exercise-card"><p class="exercise-prompt">Escreva somente uma palavra (o verbo na forma correta ou o auxiliar): <br><strong>1.</strong> I ________ (eat) yesterday.</p><div class="fill-group"><input type="text" class="write-input" data-answer="ate"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>2.</strong> She did not ________ (work).</p><div class="fill-group"><input type="text" class="write-input" data-answer="work"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>3.</strong> ________ they (play) last night?</p><div class="fill-group"><input type="text" class="write-input" data-answer="did"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>4.</strong> He ________ TV. (watch)</p><div class="fill-group"><input type="text" class="write-input" data-answer="watched"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>5.</strong> We ________ not (study).</p><div class="fill-group"><input type="text" class="write-input" data-answer="did"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>6.</strong> Did you ________ (read) the book?</p><div class="fill-group"><input type="text" class="write-input" data-answer="read"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>7.</strong> The cat ________ (sleep) on the sofa.</p><div class="fill-group"><input type="text" class="write-input" data-answer="slept"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>8.</strong> I ________ not (drive).</p><div class="fill-group"><input type="text" class="write-input" data-answer="did"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>9.</strong> She ________ (cook) dinner.</p><div class="fill-group"><input type="text" class="write-input" data-answer="cooked"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>10.</strong> They did not ________ (run).</p><div class="fill-group"><input type="text" class="write-input" data-answer="run"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>11.</strong> Where ________ he (go)?</p><div class="fill-group"><input type="text" class="write-input" data-answer="did"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>12.</strong> I ________ (see) her last week.</p><div class="fill-group"><input type="text" class="write-input" data-answer="saw"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+            </div>
+            <div id="scramble-exercises" class="exercise-mode" style="display:none;">
+                <div class="exercise-card"><p class="exercise-prompt"><strong>1.</strong> Ordene as palavras:</p><p class="scrambled-words-text">ate / I / yesterday</p><div class="scramble-group"><input type="text" class="write-input" data-answer="i ate yesterday"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>2.</strong> Ordene as palavras:</p><p class="scrambled-words-text">not / did / work / She</p><div class="scramble-group"><input type="text" class="write-input" data-answer="she did not work"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>3.</strong> Ordene as palavras:</p><p class="scrambled-words-text">play / Did / they / ?</p><div class="scramble-group"><input type="text" class="write-input" data-answer="did they play"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>4.</strong> Ordene as palavras:</p><p class="scrambled-words-text">TV / watched / He</p><div class="scramble-group"><input type="text" class="write-input" data-answer="he watched tv"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>5.</strong> Ordene as palavras:</p><p class="scrambled-words-text">not / We / study / did</p><div class="scramble-group"><input type="text" class="write-input" data-answer="we did not study"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>6.</strong> Ordene as palavras:</p><p class="scrambled-words-text">you / read / Did / ?</p><div class="scramble-group"><input type="text" class="write-input" data-answer="did you read"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>7.</strong> Ordene as palavras:</p><p class="scrambled-words-text">slept / cat / The</p><div class="scramble-group"><input type="text" class="write-input" data-answer="the cat slept"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>8.</strong> Ordene as palavras:</p><p class="scrambled-words-text">I / drive / not / did</p><div class="scramble-group"><input type="text" class="write-input" data-answer="i did not drive"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>9.</strong> Ordene as palavras:</p><p class="scrambled-words-text">cook / she / Did / ?</p><div class="scramble-group"><input type="text" class="write-input" data-answer="did she cook"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>10.</strong> Ordene as palavras:</p><p class="scrambled-words-text">ran / They / yesterday</p><div class="scramble-group"><input type="text" class="write-input" data-answer="they ran yesterday"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>11.</strong> Ordene as palavras:</p><p class="scrambled-words-text">go / did / Where / he / ?</p><div class="scramble-group"><input type="text" class="write-input" data-answer="where did he go"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+                <div class="exercise-card"><p class="exercise-prompt"><strong>12.</strong> Ordene as palavras:</p><p class="scrambled-words-text">her / I / saw / week / last</p><div class="scramble-group"><input type="text" class="write-input" data-answer="i saw her last week"><button class="check-btn">Verificar</button><div class="feedback"></div></div></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer id="contato" class="site-footer">
+    <div class="footer-content">
+        <div class="social-media-links">
+            <h4>Siga-me nas redes sociais</h4>
+            <a href="https://www.youtube.com/@teacherleoramos/videos" target="_blank" title="YouTube"><img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png" alt="YouTube"></a>
+            <a href="https://www.instagram.com/teacherleoramos/" target="_blank" title="Instagram"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@teacherleoramos" target="_blank" title="TikTok"><img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok.png" alt="TikTok"></a>
+            <a href="https://wa.me/5511955582118" target="_blank" title="WhatsApp"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp"></a>
+        </div>
+        <p><strong>Contato</strong></p>
+        <p>Youtube: @teacherleoramos | Telefone - WhatsApp: (11) 95558-2118</p>
+        <p>Endereço: São Paulo, SP, Brasil</p>
+        <p>CNPJ: 43.226.983/0001-91</p>
+        <p>&copy; 2025 | FEATHERED FRIENDS ENGLISH SCHOOL - FFES. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- VARIÁVEIS DO PLACAR ---
+    let acertos = 0;
+    let erros = 0;
+    const placarAcertosEl = document.getElementById('acertos-geral');
+    const placarErrosEl = document.getElementById('erros-geral');
+    const resetBtn = document.getElementById('reset-btn');
+
+    // Função para atualizar o placar
+    function atualizarPlacar() {
+        placarAcertosEl.textContent = acertos;
+        placarErrosEl.textContent = erros;
+    }
+
+    // Lógica do botão Zerar
+    resetBtn.addEventListener('click', () => {
+        window.location.reload();
+    });
+    // --- FIM DAS ADIÇÕES DO PLACAR ---
+
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    const exerciseModes = document.querySelectorAll('.exercise-mode');
+
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modeBtns.forEach(b => b.classList.remove('active'));
+            exerciseModes.forEach(m => m.style.display = 'none');
+            
+            btn.classList.add('active');
+            
+            let targetModeId;
+            if (btn.id === 'mc-btn') targetModeId = 'mc-exercises';
+            if (btn.id === 'write-btn') targetModeId = 'write-exercises';
+            if (btn.id === 'fill-btn') targetModeId = 'fill-exercises';
+            if (btn.id === 'scramble-btn') targetModeId = 'scramble-exercises';
+            
+            if (targetModeId) {
+                document.getElementById(targetModeId).style.display = 'block';
+            }
+        });
+    });
+
+    const mcOptionGroups = document.querySelectorAll('.mc-options');
+    mcOptionGroups.forEach(group => {
+        const options = group.querySelectorAll('.mc-option');
+        const feedbackEl = group.nextElementSibling;
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                if (group.querySelector('.correct-answer') || group.querySelector('.incorrect-answer')) return;
+                
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                if (isCorrect) {
+                    option.classList.add('correct-answer');
+                    feedbackEl.textContent = 'Correto!';
+                    feedbackEl.className = 'feedback correct';
+                    acertos++; 
+                } else {
+                    option.classList.add('incorrect-answer');
+                    feedbackEl.textContent = 'Incorreto. A resposta certa está destacada em verde.';
+                    feedbackEl.className = 'feedback incorrect';
+                    group.querySelector('[data-correct="true"]').classList.add('correct-answer');
+                    erros++; 
+                }
+                atualizarPlacar(); 
+            });
+        });
+    });
+
+
+    // #################### INÍCIO DA CORREÇÃO ####################
+
+    /**
+     * Função auxiliar para "normalizar" o texto:
+     * Expande contrações, remove acentos e pontuação.
+     */
+    function normalizeText(text) {
+        if (typeof text !== 'string') return '';
+        
+        return text.trim()
+                   .toLowerCase()
+                   .replace(/[.?]/g, '') // Remove pontuação
+                   .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove acentos
+                   
+                   // Contractions: TO BE
+                   .replace(/i'm/g, 'i am')
+                   .replace(/you're/g, 'you are')
+                   .replace(/he's/g, 'he is')
+                   .replace(/she's/g, 'she is')
+                   .replace(/it's/g, 'it is')
+                   .replace(/we're/g, 'we are')
+                   .replace(/they're/g, 'they are')
+                   .replace(/isn't/g, 'is not')
+                   .replace(/aren't/g, 'are not')
+                   .replace(/wasn't/g, 'was not')
+                   .replace(/weren't/g, 'were not')
+                   
+                   // Contractions: DO
+                   .replace(/don't/g, 'do not')
+                   .replace(/doesn't/g, 'does not')
+                   .replace(/didn't/g, 'did not')
+                   
+                   // Contractions: WILL (you'll, etc.)
+                   .replace(/i'll/g, 'i will')
+                   .replace(/you'll/g, 'you will')
+                   .replace(/he'll/g, 'he will')
+                   .replace(/she'll/g, 'she will')
+                   .replace(/it'll/g, 'it will')
+                   .replace(/we'll/g, 'we will')
+                   .replace(/they'll/g, 'they will')
+                   .replace(/won't/g, 'will not')
+                   
+                   // Contractions: HAVE
+                   .replace(/i've/g, 'i have')
+                   .replace(/you've/g, 'you have')
+                   .replace(/we've/g, 'we have')
+                   .replace(/they've/g, 'they have')
+                   .replace(/haven't/g, 'have not')
+                   .replace(/hasn't/g, 'has not')
+                   .replace(/hadn't/g, 'had not')
+                   
+                   // Contractions: WOULD
+                   .replace(/i'd/g, 'i would')
+                   .replace(/you'd/g, 'you would')
+                   .replace(/he'd/g, 'he would')
+                   .replace(/she'd/g, 'she would')
+                   .replace(/we'd/g, 'we would')
+                   .replace(/they'd/g, 'they would')
+                   .replace(/wouldn't/g, 'would not')
+                   
+                   // Outros
+                   .replace(/can't/g, 'can not'); // 'cannot' também é comum, mas 'can not' é mais seguro para a lógica
+    }
+
+
+    const checkWriteBtns = document.querySelectorAll('.write-group .check-btn');
+    checkWriteBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const group = btn.parentElement;
+            const feedbackEl = group.querySelector('.feedback');
+            
+            if (feedbackEl.textContent !== "") return; 
+
+            const inputs = group.querySelectorAll('.write-input');
+            let allCorrect = true;
+            inputs.forEach(input => {
+                // APLICA A NORMALIZAÇÃO NA RESPOSTA DO USUÁRIO
+                const userAnswer = normalizeText(input.value);
+                
+                // APLICA A MESMA NORMALIZAÇÃO NA RESPOSTA CORRETA
+                const correctAnswer = normalizeText(input.getAttribute('data-answer')); 
+                
+                if (userAnswer === correctAnswer) {
+                    input.style.borderColor = '#27ae60';
+                    input.style.backgroundColor = '#eafaf1';
+                } else {
+                    input.style.borderColor = '#c0392b';
+                    input.style.backgroundColor = '#fbeae8';
+                    allCorrect = false;
+                }
+            });
+            if (allCorrect) {
+                feedbackEl.textContent = 'Excelente, todas as respostas estão corretas!';
+                feedbackEl.className = 'feedback correct';
+                acertos++; 
+            } else {
+                feedbackEl.textContent = 'Algumas respostas estão incorretas. Verifique os campos em vermelho.';
+                feedbackEl.className = 'feedback incorrect';
+                erros++; 
+            }
+            atualizarPlacar(); 
+        });
+    });
+
+
+    const checkSingleInputBtns = document.querySelectorAll('.fill-group .check-btn, .scramble-group .check-btn');
+    checkSingleInputBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const group = btn.parentElement;
+            const input = group.querySelector('.write-input');
+            const feedbackEl = group.querySelector('.feedback');
+            
+            if (feedbackEl.textContent !== "") return;
+
+            // APLICA A NORMALIZAÇÃO NA RESPOSTA DO USUÁRIO
+            const userAnswer = normalizeText(input.value);
+            
+            // APLICA A MESMA NORMALIZAÇÃO NA RESPOSTA CORRETA
+            const correctAnswer = normalizeText(input.getAttribute('data-answer'));
+
+            if (userAnswer === correctAnswer) {
+                input.style.borderColor = '#27ae60';
+                input.style.backgroundColor = '#eafaf1';
+                feedbackEl.textContent = 'Correto!';
+                feedbackEl.className = 'feedback correct';
+                acertos++; 
+            } else {
+                input.style.borderColor = '#c0392b';
+                input.style.backgroundColor = '#fbeae8';
+                
+                // Pega a resposta original (sem normalização) apenas para mostrar ao aluno
+                const originalCorrectAnswer = input.getAttribute('data-answer').trim();
+                feedbackEl.textContent = 'Incorreto. A resposta correta é: "' + originalCorrectAnswer + '"';
+                feedbackEl.className = 'feedback incorrect';
+                erros++; 
+            }
+            atualizarPlacar(); 
+        });
+    });
+    // #################### FIM DA CORREÇÃO ####################
+});
+</script>
+
+
+</body>
+</html>
